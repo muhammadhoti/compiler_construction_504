@@ -12,6 +12,3 @@ Install dependencies:
 Compile and start:
 
 ```npm start```
-
-## Related article
-https://medium.com/@PhilippKief/how-to-debug-typescript-with-vs-code-9cec93b4ae56
