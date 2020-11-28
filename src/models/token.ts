@@ -1,5 +1,5 @@
 export class Token {
-    Line : number = 0;
+    line : number = 0;
     
 
 }
