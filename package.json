@@ -2,6 +2,7 @@
   "name": "vscode-typescript-debugging",
   "version": "1.0.0",
   "devDependencies": {
+    "@types/node": "^14.14.10",
     "typescript": "^3.4.1"
   },
   "scripts": {
@@ -15,5 +16,8 @@
     "Debugging"
   ],
   "author": "Philipp Kief",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "fs": "0.0.1-security"
+  }
 }

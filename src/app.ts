@@ -1,9 +1,10 @@
-import { LexicalAnalyzer } from "./services/lexical_analyzer";
+import { LexicalAnalyzer } from "./services/services";
+
 
 class App {
-    public static start() {
+    public static async start() {
         let lexicalAnalyzer : LexicalAnalyzer = new LexicalAnalyzer();
-        lexicalAnalyzer.Start();
+        await lexicalAnalyzer.Start();
     }
 }
 
