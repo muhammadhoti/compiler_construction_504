@@ -2,6 +2,11 @@ export enum Errors {
     invalidLexue= "invalidLexue"
 }
 
+export enum Path {
+    code = "src\\input\\code.txt",
+    tokenSet = "src\\output"
+}
+
 export enum LanguageDefinedConstantTypes {
     keyword= "keyword",
     operator= "operator",

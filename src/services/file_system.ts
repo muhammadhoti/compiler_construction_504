@@ -22,10 +22,9 @@ export class FileSystem{
     }
 
 
-    async WriteFile(file: any,fileName:string): Promise<any> {
+    async WriteFile(file: any,dirPath:string,fileName:string): Promise<any> {
         return new Promise((res, rej) => {
             let filePath = "";
-            let dirPath = "src\\output";
 
             filePath = path.join(dirPath, fileName);
 
