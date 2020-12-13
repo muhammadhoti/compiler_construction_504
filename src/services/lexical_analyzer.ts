@@ -17,11 +17,11 @@ export class LexicalAnalyzer{
 
     async Start(){
         let sourceCode = await (await this.fileSystem.ReadFile(Path.code)).toString();
-        let tokens = this.SplitWords(sourceCode);
-        await this.fileSystem.WriteFile(JSON.stringify(tokens),Path.tokenSet,"token_set.json");
+        this.SplitWords(sourceCode);
+        await this.fileSystem.WriteFile(JSON.stringify(this.tokens),Path.tokenSet,"token_set.json");
     }
 
-    SplitWords(sourceCode :string) : Token[]{
+    SplitWords(sourceCode :string) : void{
         for(let char of sourceCode){
             if(char === "\n"){
                 this.NewLineEvent();
@@ -38,7 +38,6 @@ export class LexicalAnalyzer{
             }
             this.i++;
         }
-        return this.tokens;
     }
 
     
