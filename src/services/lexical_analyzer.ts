@@ -6,12 +6,12 @@ import { FileSystem } from "./file_system";
 export class LexicalAnalyzer{
     myLanguage : LanguageDefination = new LanguageDefination();
     fileSystem : FileSystem = new FileSystem();
-    i = 0;
+    index = 0;
     tokens : Token[] = [];
     lineNumber = 1;
     temp = "";
-    isComment : boolean = false;
-    isMultiComment : boolean = false;
+    isSingleLineComment : boolean = false;
+    isMultiLineComment : boolean = false;
     isString : boolean = false;
     isChar : boolean = false;
 
@@ -32,14 +32,47 @@ export class LexicalAnalyzer{
                     if(isPuncuator){
                         this.PuncuatorEvent(char);
                     }
+                }else if(char === "/" || char === "*"){
+                    this.CommentEvent(char);
                 }else{
                     this.NormalEvent(char);
                 }
             }
-            this.i++;
+            this.index++;
         }
     }
 
+    CommentEvent(char: string){
+        if(!this.isChar && !this.isString){
+            if(char === "/"){
+                this.SingleLineCommentEvent(char);
+            }else{
+                this.MultiLineCommentEvent(char);
+            }
+        }else{
+            this.NormalEvent(char);
+        }
+    }
+
+    SingleLineCommentEvent(char : string){
+        if(this.temp === "/"){
+            this.temp = "";
+            this.isSingleLineComment = true;
+        }else{
+            this.NormalEvent(char);
+        }
+
+    }
+
+    MultiLineCommentEvent(char : string){
+
+    }
+
+    NormalEvent(char: string){
+        if(!this.isSingleLineComment && !this.isMultiLineComment){
+            this.temp = this.temp + char;
+        }
+    }
     
     PuncuatorEvent(char:string){
         if(char !== '"' && char !== "'"){
@@ -91,21 +124,15 @@ export class LexicalAnalyzer{
         }
     }
 
-    NormalEvent(char: string){
-        if(!this.isComment && !this.isMultiComment){
-            this.temp = this.temp + char;
-        }
-    }
-
     NewLineEvent(){
-        if(!this.isComment && !this.isMultiComment){
+        if(!this.isSingleLineComment && !this.isMultiLineComment){
             if(this.temp && this.temp !== " "){
                 let token : Token = this.TokenizeWord(this.temp,this.lineNumber,true);
                 this.tokens.push(token);
             }
         }
         this.lineNumber++;
-        this.isComment = false;
+        this.isSingleLineComment = false;
         this.isString = false;
         this.isChar = false;
         this.temp = "";
