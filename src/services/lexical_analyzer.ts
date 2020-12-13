@@ -6,6 +6,14 @@ import { FileSystem } from "./file_system";
 export class LexicalAnalyzer{
     myLanguage : LanguageDefination = new LanguageDefination();
     fileSystem : FileSystem = new FileSystem();
+    i = 0;
+    tokens : Token[] = [];
+    lineNumber = 1;
+    temp = "";
+    isComment : boolean = false;
+    isMultiComment : boolean = false;
+    isString : boolean = false;
+    isChar : boolean = false;
 
     async Start(){
         let sourceCode = await (await this.fileSystem.ReadFile(Path.code)).toString();
@@ -14,74 +22,94 @@ export class LexicalAnalyzer{
     }
 
     SplitWords(sourceCode :string) : Token[]{
-        let i = 0;
-        let tokens : Token[] = [];
-        let lineNumber = 1;
-        let temp = "";
-        let isComment : boolean = false;
-        let isMultiComment : boolean = false;
-        let isString : boolean = false;
-        let isChar : boolean = false;
-        let token : Token;
         for(let char of sourceCode){
             if(char === "\n"){
-                if(!isComment && !isMultiComment){
-                    if(temp && temp !== " "){
-                        token = this.TokenizeWord(temp,lineNumber,true);
-                        tokens.push(token);
-                    }
-                }
-                lineNumber++;
-                isComment = false;
-                isString = false;
-                isChar = false;
-                temp = "";
+                this.NewLineEvent();
             }else if(char !== "\r"){
-                if(char === " " || this.IsPunctuator(char) && ((!isString || char === '"') || (!isChar || char === '"'))){
-                    if(temp && temp !== " " && !isString && !isChar){
-                        token = this.TokenizeWord(temp,lineNumber);
-                        tokens.push(token);
-                        temp = "";
-                    }else if(char === " " && (isString || isChar)){
-                        temp = temp + char;
-                    }
-                    if(this.IsPunctuator(char)){
-                        if(char !== '"' && char !== "'"){
-                            token = this.TokenizeWord(char,lineNumber);
-                            tokens.push(token);
-                            temp = "";
-                        }else{
-                            if(!isString && char === '"'){
-                                temp = temp + char;
-                                isString = true;
-                            }else if(isString && char === '"'){
-                                isString = false;
-                                temp = temp + char;
-                                token = this.TokenizeWord(temp,lineNumber);
-                                tokens.push(token);
-                                temp = "";
-                            }
-                            if(!isChar && char === "'"){
-                                temp = temp + char;
-                                isChar = true;
-                            }else if(isChar && char === "'"){
-                                isChar = false;
-                                temp = temp + char;
-                                token = this.TokenizeWord(temp,lineNumber);
-                                tokens.push(token);
-                                temp = "";
-                            }
-                        }
+                let isPuncuator = this.IsPunctuator(char);
+                if(char === " " || isPuncuator && ((!this.isString || char === '"') || (!this.isChar || char === '"'))){
+                    this.SpacePunctuatorBreakEvent(char);
+                    if(isPuncuator){
+                        this.PuncuatorEvent(char);
                     }
                 }else{
-                    if(!isComment && !isMultiComment){
-                        temp = temp + char;
-                    }
+                    this.NormalEvent(char);
                 }
             }
-            i++;
+            this.i++;
         }
-        return tokens;
+        return this.tokens;
+    }
+
+    
+    PuncuatorEvent(char:string){
+        if(char !== '"' && char !== "'"){
+            this.tokens.push(this.TokenizeWord(char,this.lineNumber));
+            this.temp = "";
+        }else if(char === "'" || char === '"'){
+            this.StringCharPuncuatorEvent(char);
+        }
+    }
+
+    StringCharPuncuatorEvent(char){
+        if(char === '"'){
+            this.StringPuncuatorEvent(char);
+        }else{
+            this.CharPuncuatorEvent(char);
+        }
+    }
+
+    StringPuncuatorEvent(char : string){
+        if(!this.isString){
+            this.temp = this.temp + char;
+            this.isString = true;
+        }else if(this.isString){
+            this.isString = false;
+            this.temp = this.temp + char;
+            this.tokens.push(this.TokenizeWord(this.temp,this.lineNumber));
+            this.temp = "";
+        }
+    }
+
+    CharPuncuatorEvent(char:string){
+        if(!this.isChar){
+            this.temp = this.temp + char;
+            this.isChar = true;
+        }else if(this.isChar){
+            this.isChar = false;
+            this.temp = this.temp + char;
+            this.tokens.push(this.TokenizeWord(this.temp,this.lineNumber));
+            this.temp = "";
+        }
+    }
+
+    SpacePunctuatorBreakEvent(char : string){
+        if(this.temp && this.temp !== " " && !this.isString && !this.isChar){
+            this.tokens.push(this.TokenizeWord(this.temp,this.lineNumber));
+            this.temp = "";
+        }else if(char === " " && (this.isString || this.isChar)){
+            this.temp = this.temp + char;
+        }
+    }
+
+    NormalEvent(char: string){
+        if(!this.isComment && !this.isMultiComment){
+            this.temp = this.temp + char;
+        }
+    }
+
+    NewLineEvent(){
+        if(!this.isComment && !this.isMultiComment){
+            if(this.temp && this.temp !== " "){
+                let token : Token = this.TokenizeWord(this.temp,this.lineNumber,true);
+                this.tokens.push(token);
+            }
+        }
+        this.lineNumber++;
+        this.isComment = false;
+        this.isString = false;
+        this.isChar = false;
+        this.temp = "";
     }
 
     IsPunctuator(char :string):boolean{
