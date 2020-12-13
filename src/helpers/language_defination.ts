@@ -17,8 +17,8 @@ export class LanguageDefination {
         },
         {
             type : LanguageDefinedConstantTypes.keyword,
-            classPart : "string",
-            valuePart : "string"
+            classPart : "String",
+            valuePart : "String"
 
         },
         {
