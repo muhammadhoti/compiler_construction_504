@@ -7,6 +7,6 @@ class Simple{  //this is a single line comment
      line 
      comment
      */
-     System.out.println('aAS');  
+     System.out.println("Line 1 \
     }  
 }  

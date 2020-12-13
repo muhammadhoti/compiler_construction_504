@@ -147,7 +147,7 @@ export class LexicalAnalyzer{
 
     IsPunctuator(char :string):boolean{
         let index = this.myLanguage.punctuators.findIndex(x=> x.valuePart === char);
-        if(index === -1){
+        if(index === -1 || char === "\\"){
             return false
         }
         return true;
@@ -170,7 +170,9 @@ export class LexicalAnalyzer{
             }
         }
         if(word[0] === "'" && word.length > 3){
-            return Errors.invalidLexue;
+            if(word.length !== 4 || word[1] !== "\\"){
+                return Errors.invalidLexue;
+            }
         }
         return word;
     }
