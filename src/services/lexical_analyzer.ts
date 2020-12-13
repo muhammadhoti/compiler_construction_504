@@ -31,17 +31,18 @@ export class LexicalAnalyzer{
     }
 
     TokenizeWord(word :string,lineNumber : number) : Token{
-        
-        //set cp and vp 
-
         let token =
             {
-                "classPart" : word,
+                "classPart" : this.GetClassPart(word),
                 "valuePart" : word,
                 "line" : lineNumber
             }
-        
         return token;
+    }
+
+    GetClassPart(word :string) : string{
+        
+        return word;
     }
     
 }
