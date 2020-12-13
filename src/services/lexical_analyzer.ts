@@ -6,6 +6,7 @@ import { FileSystem } from "./file_system";
 export class LexicalAnalyzer{
     myLanguage : LanguageDefination = new LanguageDefination();
     fileSystem : FileSystem = new FileSystem();
+    sourceCode : string = "";
     index = 0;
     tokens : Token[] = [];
     lineNumber = 1;
@@ -16,13 +17,13 @@ export class LexicalAnalyzer{
     isChar : boolean = false;
 
     async Start(){
-        let sourceCode = await (await this.fileSystem.ReadFile(Path.code)).toString();
-        this.SplitWords(sourceCode);
+        this.sourceCode = await (await this.fileSystem.ReadFile(Path.code)).toString();
+        this.SplitWords();
         await this.fileSystem.WriteFile(JSON.stringify(this.tokens),Path.tokenSet,"token_set.json");
     }
 
-    SplitWords(sourceCode :string) : void{
-        for(let char of sourceCode){
+    SplitWords() : void{
+        for(let char of this.sourceCode){
             if(char === "\n"){
                 this.NewLineEvent();
             }else if(char !== "\r"){
@@ -44,7 +45,7 @@ export class LexicalAnalyzer{
 
     CommentEvent(char: string){
         if(!this.isChar && !this.isString){
-            if(char === "/"){
+            if(char === "/"  && !this.isMultiLineComment){
                 this.SingleLineCommentEvent(char);
             }else{
                 this.MultiLineCommentEvent(char);
@@ -61,11 +62,17 @@ export class LexicalAnalyzer{
         }else{
             this.NormalEvent(char);
         }
-
     }
 
     MultiLineCommentEvent(char : string){
-
+        if(this.temp === "/" && char === "*"){
+            this.temp = "";
+            this.isMultiLineComment = true;
+        }else if(this.isMultiLineComment && char === "/" && this.sourceCode[this.index -1] === "*"){
+            this.isMultiLineComment = false;
+        }else{
+            this.NormalEvent(char);
+        }
     }
 
     NormalEvent(char: string){

@@ -1,5 +1,12 @@
 class Simple{  //this is a single line comment
     public static void main(String args[]){  
+     /*
+     this 
+     is 
+     a multi
+     line 
+     comment
+     */
      System.out.println('aAS');  
     }  
 }  

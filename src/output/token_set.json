@@ -1,1 +1,127 @@
-[{"classPart":"class","valuePart":"class","line":1},{"classPart":"Simple","valuePart":"Simple","line":1},{"classPart":"{","valuePart":"{","line":1},{"classPart":"public","valuePart":"public","line":2},{"classPart":"static","valuePart":"static","line":2},{"classPart":"void","valuePart":"void","line":2},{"classPart":"main","valuePart":"main","line":2},{"classPart":"(","valuePart":"(","line":2},{"classPart":"String","valuePart":"String","line":2},{"classPart":"args","valuePart":"args","line":2},{"classPart":"[","valuePart":"[","line":2},{"classPart":"]","valuePart":"]","line":2},{"classPart":")","valuePart":")","line":2},{"classPart":"{","valuePart":"{","line":2},{"classPart":"System","valuePart":"System","line":3},{"classPart":".","valuePart":".","line":3},{"classPart":"out","valuePart":"out","line":3},{"classPart":".","valuePart":".","line":3},{"classPart":"println","valuePart":"println","line":3},{"classPart":"(","valuePart":"(","line":3},{"classPart":"invalidLexue","valuePart":"'aAS'","line":3},{"classPart":")","valuePart":")","line":3},{"classPart":";","valuePart":";","line":3},{"classPart":"}","valuePart":"}","line":4},{"classPart":"}","valuePart":"}","line":5}]
+[
+    {
+        "classPart": "class",
+        "valuePart": "class",
+        "line": 1
+    },
+    {
+        "classPart": "Simple",
+        "valuePart": "Simple",
+        "line": 1
+    },
+    {
+        "classPart": "{",
+        "valuePart": "{",
+        "line": 1
+    },
+    {
+        "classPart": "public",
+        "valuePart": "public",
+        "line": 2
+    },
+    {
+        "classPart": "static",
+        "valuePart": "static",
+        "line": 2
+    },
+    {
+        "classPart": "void",
+        "valuePart": "void",
+        "line": 2
+    },
+    {
+        "classPart": "main",
+        "valuePart": "main",
+        "line": 2
+    },
+    {
+        "classPart": "(",
+        "valuePart": "(",
+        "line": 2
+    },
+    {
+        "classPart": "String",
+        "valuePart": "String",
+        "line": 2
+    },
+    {
+        "classPart": "args",
+        "valuePart": "args",
+        "line": 2
+    },
+    {
+        "classPart": "[",
+        "valuePart": "[",
+        "line": 2
+    },
+    {
+        "classPart": "]",
+        "valuePart": "]",
+        "line": 2
+    },
+    {
+        "classPart": ")",
+        "valuePart": ")",
+        "line": 2
+    },
+    {
+        "classPart": "{",
+        "valuePart": "{",
+        "line": 2
+    },
+    {
+        "classPart": "System",
+        "valuePart": "System",
+        "line": 10
+    },
+    {
+        "classPart": ".",
+        "valuePart": ".",
+        "line": 10
+    },
+    {
+        "classPart": "out",
+        "valuePart": "out",
+        "line": 10
+    },
+    {
+        "classPart": ".",
+        "valuePart": ".",
+        "line": 10
+    },
+    {
+        "classPart": "println",
+        "valuePart": "println",
+        "line": 10
+    },
+    {
+        "classPart": "(",
+        "valuePart": "(",
+        "line": 10
+    },
+    {
+        "classPart": "invalidLexue",
+        "valuePart": "'aAS'",
+        "line": 10
+    },
+    {
+        "classPart": ")",
+        "valuePart": ")",
+        "line": 10
+    },
+    {
+        "classPart": ";",
+        "valuePart": ";",
+        "line": 10
+    },
+    {
+        "classPart": "}",
+        "valuePart": "}",
+        "line": 11
+    },
+    {
+        "classPart": "}",
+        "valuePart": "}",
+        "line": 12
+    }
+]
