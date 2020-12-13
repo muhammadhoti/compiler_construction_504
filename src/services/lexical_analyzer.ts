@@ -1,5 +1,6 @@
 import { Path } from "../helpers/enums";
 import { LanguageDefination } from "../helpers/language_defination";
+import { Token } from "../models/token";
 import { FileSystem } from "./file_system";
 
 export class LexicalAnalyzer{
@@ -7,10 +8,40 @@ export class LexicalAnalyzer{
     fileSystem : FileSystem = new FileSystem();
 
     async Start(){
-        console.log("I AM HERE",this.myLanguage.constant);
-        let code = await this.fileSystem.ReadFile(Path.code);
-        console.log(code);
-        await this.fileSystem.WriteFile(code,Path.tokenSet,"token_set");
+        let sourceCode = await (await this.fileSystem.ReadFile(Path.code)).toString();
+        let tokens = this.SplitWords(sourceCode);
+        await this.fileSystem.WriteFile(JSON.stringify(tokens),Path.tokenSet,"token_set");
+    }
+
+    SplitWords(sourceCode :string) : Token[]{
+        let tokens : Token[] = [];
+        let lineNumber = 1;
+        let temp = "";
+        for(let i = 0; i <sourceCode.length; i++){
+            console.log(sourceCode[i])
+            if(sourceCode[i] === "\n"){
+                lineNumber++;
+            }else if(sourceCode[i] !== "\r"){
+                let token = this.TokenizeWord(sourceCode[i],lineNumber);
+                tokens.push(token);
+            }
+        }
+        console.log(lineNumber);
+        return tokens;
+    }
+
+    TokenizeWord(word :string,lineNumber : number) : Token{
+        
+        //set cp and vp 
+
+        let token =
+            {
+                "classPart" : word,
+                "valuePart" : word,
+                "line" : lineNumber
+            }
+        
+        return token;
     }
     
 }
