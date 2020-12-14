@@ -1,12 +1,1 @@
-class Simple{  //this is a single line comment
-    public static void main(String args[]){  
-     /*
-     this 
-     is 
-     a multi
-     line 
-     comment
-     */
-     System.out.println("Line 1 \
-    }  
-}  
+a.b.c 89.99 abc.99 a55b.25 ab5.99b.95 9.55.44.11;

@@ -11,124 +11,157 @@ export class LexicalAnalyzer{
     tokens : Token[] = [];
     lineNumber = 1;
     temp = "";
+    char = "";
     isSingleLineComment : boolean = false;
     isMultiLineComment : boolean = false;
     isString : boolean = false;
     isChar : boolean = false;
+    isBackslash : boolean = false;
 
     async Start(){
-        this.sourceCode = await (await this.fileSystem.ReadFile(Path.code)).toString();
+        let codeFile = await this.fileSystem.ReadFile(Path.code);
+        this.sourceCode = codeFile.toString()
         this.SplitWords();
         await this.fileSystem.WriteFile(JSON.stringify(this.tokens),Path.tokenSet,"token_set.json");
     }
 
     SplitWords() : void{
         for(let char of this.sourceCode){
-            if(char === "\n"){
+            this.char = char;
+            if(this.char === "\n"){
                 this.NewLineEvent();
-            }else if(char !== "\r"){
-                let isPuncuator = this.IsPunctuator(char);
-                if(char === " " || isPuncuator && ((!this.isString || char === '"') || (!this.isChar || char === '"'))){
-                    this.SpacePunctuatorBreakEvent(char);
-                    if(isPuncuator){
-                        this.PuncuatorEvent(char);
+            }else if(this.char !== "\r"){
+                if(this.temp === "89"){
+                    console.log("here")
+                }
+                let isPuncuator = this.IsPunctuator();
+                if(this.char === " " || isPuncuator && ((!this.isString || this.char === '"') || (!this.isChar || this.char === '"'))){
+                    this.SpacePunctuatorBreakEvent();
+                    if(isPuncuator && !this.isSingleLineComment && !this.isMultiLineComment){
+                        this.PuncuatorEvent();
                     }
-                }else if(char === "/" || char === "*"){
-                    this.CommentEvent(char);
+                }else if(this.char === "/" || this.char === "*"){
+                    this.CommentEvent();
                 }else{
-                    this.NormalEvent(char);
+                    this.ConcatChar();
                 }
             }
             this.index++;
         }
     }
 
-    CommentEvent(char: string){
+    CommentEvent(){
         if(!this.isChar && !this.isString){
-            if(char === "/"  && !this.isMultiLineComment){
-                this.SingleLineCommentEvent(char);
+            if(this.char === "/"  && !this.isMultiLineComment){
+                this.SingleLineCommentEvent();
             }else{
-                this.MultiLineCommentEvent(char);
+                this.MultiLineCommentEvent();
             }
         }else{
-            this.NormalEvent(char);
+            this.ConcatChar();
         }
     }
 
-    SingleLineCommentEvent(char : string){
+    SingleLineCommentEvent(){
         if(this.temp === "/"){
             this.temp = "";
             this.isSingleLineComment = true;
         }else{
-            this.NormalEvent(char);
+            this.ConcatChar();
         }
     }
 
-    MultiLineCommentEvent(char : string){
-        if(this.temp === "/" && char === "*"){
+    MultiLineCommentEvent(){
+        if(this.temp === "/" && this.char === "*"){
             this.temp = "";
             this.isMultiLineComment = true;
-        }else if(this.isMultiLineComment && char === "/" && this.sourceCode[this.index -1] === "*"){
+        }else if(this.isMultiLineComment && this.char === "/" && this.sourceCode[this.index -1] === "*"){
             this.isMultiLineComment = false;
         }else{
-            this.NormalEvent(char);
+            this.ConcatChar();
         }
     }
 
-    NormalEvent(char: string){
+    ConcatChar(){
         if(!this.isSingleLineComment && !this.isMultiLineComment){
-            this.temp = this.temp + char;
+            this.temp = this.temp + this.char;
         }
     }
     
-    PuncuatorEvent(char:string){
-        if(char !== '"' && char !== "'"){
-            this.tokens.push(this.TokenizeWord(char,this.lineNumber));
-            this.temp = "";
-        }else if(char === "'" || char === '"'){
-            this.StringCharPuncuatorEvent(char);
+    PuncuatorEvent(){
+        if(this.char === "."){
+            this.DotPuncuatorEvent();
+        }else if(this.char !== '"' && this.char !== "'"){
+            this.PuncuatorBreakEvent();
+        }else if(this.char === "'" || this.char === '"'){
+            this.StringCharPuncuatorEvent();
         }
     }
 
-    StringCharPuncuatorEvent(char){
-        if(char === '"'){
-            this.StringPuncuatorEvent(char);
+    DotPuncuatorEvent(){
+        if(new RegExp(this.myLanguage.digits.join("|")).test(this.sourceCode[this.index + 1])) {
+            this.ConcatChar();
+        }else if(!new RegExp(this.myLanguage.alphabets.join("|")).test(this.temp) && this.temp){
+            this.ConcatChar();
         }else{
-            this.CharPuncuatorEvent(char);
+            this.PuncuatorBreakEvent();
         }
     }
 
-    StringPuncuatorEvent(char : string){
+    PuncuatorBreakEvent(){
+        this.tokens.push(this.TokenizeWord(this.char,this.lineNumber));
+            this.temp = "";
+    }
+
+    StringCharPuncuatorEvent(){
+        if(this.char === '"'){
+            this.StringPuncuatorEvent();
+        }else{
+            this.CharPuncuatorEvent();
+        }
+    }
+
+    StringPuncuatorEvent(){
         if(!this.isString){
-            this.temp = this.temp + char;
+            this.temp = this.temp + this.char;
             this.isString = true;
         }else if(this.isString){
             this.isString = false;
-            this.temp = this.temp + char;
+            this.temp = this.temp + this.char;
             this.tokens.push(this.TokenizeWord(this.temp,this.lineNumber));
             this.temp = "";
         }
     }
 
-    CharPuncuatorEvent(char:string){
+    CharPuncuatorEvent(){
         if(!this.isChar){
-            this.temp = this.temp + char;
+            this.temp = this.temp + this.char;
             this.isChar = true;
         }else if(this.isChar){
             this.isChar = false;
-            this.temp = this.temp + char;
+            this.temp = this.temp + this.char;
             this.tokens.push(this.TokenizeWord(this.temp,this.lineNumber));
             this.temp = "";
         }
     }
 
-    SpacePunctuatorBreakEvent(char : string){
-        if(this.temp && this.temp !== " " && !this.isString && !this.isChar){
+    SpacePunctuatorBreakEvent(){
+        if(this.temp && this.temp !== " " && !this.isString && !this.isChar && !this.IsFloat()){
             this.tokens.push(this.TokenizeWord(this.temp,this.lineNumber));
             this.temp = "";
-        }else if(char === " " && (this.isString || this.isChar)){
-            this.temp = this.temp + char;
+        }else if(this.char === " " && (this.isString || this.isChar)){
+            this.ConcatChar();
         }
+    }
+
+    IsFloat():boolean{
+        
+        if(this.char === "." && new RegExp(this.myLanguage.digits.join("|")).test(this.temp) && !new RegExp(this.myLanguage.alphabets.join("|")).test(this.temp) && !this.temp.includes(".")){
+            
+                return true;
+        }
+
+        return false;
     }
 
     NewLineEvent(){
@@ -142,12 +175,13 @@ export class LexicalAnalyzer{
         this.isSingleLineComment = false;
         this.isString = false;
         this.isChar = false;
+        this.isBackslash = false;
         this.temp = "";
     }
 
-    IsPunctuator(char :string):boolean{
-        let index = this.myLanguage.punctuators.findIndex(x=> x.valuePart === char);
-        if(index === -1 || char === "\\"){
+    IsPunctuator():boolean{
+        let index = this.myLanguage.punctuators.findIndex(x=> x.valuePart === this.char);
+        if(index === -1 || this.char === "\\"){
             return false
         }
         return true;

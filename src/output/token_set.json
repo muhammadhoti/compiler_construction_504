@@ -1,1 +1,87 @@
-[{"classPart":"class","valuePart":"class","line":1},{"classPart":"Simple","valuePart":"Simple","line":1},{"classPart":"{","valuePart":"{","line":1},{"classPart":"public","valuePart":"public","line":2},{"classPart":"static","valuePart":"static","line":2},{"classPart":"void","valuePart":"void","line":2},{"classPart":"main","valuePart":"main","line":2},{"classPart":"(","valuePart":"(","line":2},{"classPart":"String","valuePart":"String","line":2},{"classPart":"args","valuePart":"args","line":2},{"classPart":"[","valuePart":"[","line":2},{"classPart":"]","valuePart":"]","line":2},{"classPart":")","valuePart":")","line":2},{"classPart":"{","valuePart":"{","line":2},{"classPart":"System","valuePart":"System","line":10},{"classPart":".","valuePart":".","line":10},{"classPart":"out","valuePart":"out","line":10},{"classPart":".","valuePart":".","line":10},{"classPart":"println","valuePart":"println","line":10},{"classPart":"(","valuePart":"(","line":10},{"classPart":"invalidLexue","valuePart":"\"Line 1 \\","line":10},{"classPart":"}","valuePart":"}","line":11},{"classPart":"}","valuePart":"}","line":12}]
+[
+    {
+        "classPart": "a",
+        "valuePart": "a",
+        "line": 1
+    },
+    {
+        "classPart": ".",
+        "valuePart": ".",
+        "line": 1
+    },
+    {
+        "classPart": "b",
+        "valuePart": "b",
+        "line": 1
+    },
+    {
+        "classPart": ".",
+        "valuePart": ".",
+        "line": 1
+    },
+    {
+        "classPart": "c",
+        "valuePart": "c",
+        "line": 1
+    },
+    {
+        "classPart": "89.99",
+        "valuePart": "89.99",
+        "line": 1
+    },
+    {
+        "classPart": "abc",
+        "valuePart": "abc",
+        "line": 1
+    },
+    {
+        "classPart": ".99",
+        "valuePart": ".99",
+        "line": 1
+    },
+    {
+        "classPart": "a55b",
+        "valuePart": "a55b",
+        "line": 1
+    },
+    {
+        "classPart": ".25",
+        "valuePart": ".25",
+        "line": 1
+    },
+    {
+        "classPart": "ab5",
+        "valuePart": "ab5",
+        "line": 1
+    },
+    {
+        "classPart": ".99b",
+        "valuePart": ".99b",
+        "line": 1
+    },
+    {
+        "classPart": ".95",
+        "valuePart": ".95",
+        "line": 1
+    },
+    {
+        "classPart": "9.55",
+        "valuePart": "9.55",
+        "line": 1
+    },
+    {
+        "classPart": ".44",
+        "valuePart": ".44",
+        "line": 1
+    },
+    {
+        "classPart": ".11",
+        "valuePart": ".11",
+        "line": 1
+    },
+    {
+        "classPart": ";",
+        "valuePart": ";",
+        "line": 1
+    }
+]
