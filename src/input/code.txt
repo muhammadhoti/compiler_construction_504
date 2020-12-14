@@ -1,1 +1,9 @@
-a.b.c 89.99 abc.99 a55b.25 ab5.99b.95 9.55.44.11;
+a.b.c 89.99 abc.99 
+ /*
+this
+is
+multi
+line 
+comment
+*/
+a55b.25 ab5.99b.95 9.55.44.11;

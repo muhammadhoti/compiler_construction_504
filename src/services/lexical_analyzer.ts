@@ -31,9 +31,6 @@ export class LexicalAnalyzer{
             if(this.char === "\n"){
                 this.NewLineEvent();
             }else if(this.char !== "\r"){
-                if(this.temp === "89"){
-                    console.log("here")
-                }
                 let isPuncuator = this.IsPunctuator();
                 if(this.char === " " || isPuncuator && ((!this.isString || this.char === '"') || (!this.isChar || this.char === '"'))){
                     this.SpacePunctuatorBreakEvent();
@@ -66,6 +63,10 @@ export class LexicalAnalyzer{
         if(this.temp === "/"){
             this.temp = "";
             this.isSingleLineComment = true;
+        }else if(this.temp.includes("/")){
+            this.tokens.push(this.TokenizeWord(this.temp.slice(0,this.temp.length-1),this.lineNumber));
+            this.temp = "";
+            this.isSingleLineComment = true;
         }else{
             this.ConcatChar();
         }
@@ -73,6 +74,10 @@ export class LexicalAnalyzer{
 
     MultiLineCommentEvent(){
         if(this.temp === "/" && this.char === "*"){
+            this.temp = "";
+            this.isMultiLineComment = true;
+        }else if(this.char === "*" && this.temp.includes("/")){
+            this.tokens.push(this.TokenizeWord(this.temp.slice(0,this.temp.length-1),this.lineNumber));
             this.temp = "";
             this.isMultiLineComment = true;
         }else if(this.isMultiLineComment && this.char === "/" && this.sourceCode[this.index -1] === "*"){
@@ -157,8 +162,7 @@ export class LexicalAnalyzer{
     IsFloat():boolean{
         
         if(this.char === "." && new RegExp(this.myLanguage.digits.join("|")).test(this.temp) && !new RegExp(this.myLanguage.alphabets.join("|")).test(this.temp) && !this.temp.includes(".")){
-            
-                return true;
+            return true;
         }
 
         return false;
