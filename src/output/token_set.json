@@ -155,8 +155,28 @@
         "line": 6
     },
     {
-        "classPart": "if",
-        "valuePart": "if",
+        "classPart": "System",
+        "valuePart": "System",
+        "line": 8
+    },
+    {
+        "classPart": ".",
+        "valuePart": ".",
+        "line": 8
+    },
+    {
+        "classPart": "out",
+        "valuePart": "out",
+        "line": 8
+    },
+    {
+        "classPart": ".",
+        "valuePart": ".",
+        "line": 8
+    },
+    {
+        "classPart": "println",
+        "valuePart": "println",
         "line": 8
     },
     {
@@ -165,18 +185,18 @@
         "line": 8
     },
     {
-        "classPart": "num1",
-        "valuePart": "num1",
+        "classPart": "\"Sum of these numbers: . \"\"",
+        "valuePart": "\"Sum of these numbers: . \"\"",
         "line": 8
     },
     {
-        "classPart": ">",
-        "valuePart": ">",
+        "classPart": "+",
+        "valuePart": "+",
         "line": 8
     },
     {
-        "classPart": "num2",
-        "valuePart": "num2",
+        "classPart": "sum",
+        "valuePart": "sum",
         "line": 8
     },
     {
@@ -185,88 +205,18 @@
         "line": 8
     },
     {
-        "classPart": "{",
-        "valuePart": "{",
+        "classPart": ";",
+        "valuePart": ";",
         "line": 8
     },
     {
-        "classPart": "4",
-        "valuePart": "4",
-        "line": 9
-    },
-    {
-        "classPart": "/",
-        "valuePart": "/",
-        "line": 9
-    },
-    {
-        "classPart": "5",
-        "valuePart": "5",
+        "classPart": "}",
+        "valuePart": "}",
         "line": 9
     },
     {
         "classPart": "}",
         "valuePart": "}",
         "line": 10
-    },
-    {
-        "classPart": "System",
-        "valuePart": "System",
-        "line": 12
-    },
-    {
-        "classPart": ".",
-        "valuePart": ".",
-        "line": 12
-    },
-    {
-        "classPart": "out",
-        "valuePart": "out",
-        "line": 12
-    },
-    {
-        "classPart": ".",
-        "valuePart": ".",
-        "line": 12
-    },
-    {
-        "classPart": "println",
-        "valuePart": "println",
-        "line": 12
-    },
-    {
-        "classPart": "(",
-        "valuePart": "(",
-        "line": 12
-    },
-    {
-        "classPart": "\"Sum of these numbers: \"\"",
-        "valuePart": "\"Sum of these numbers: \"\"",
-        "line": 12
-    },
-    {
-        "classPart": "+sum",
-        "valuePart": "+sum",
-        "line": 12
-    },
-    {
-        "classPart": ")",
-        "valuePart": ")",
-        "line": 12
-    },
-    {
-        "classPart": ";",
-        "valuePart": ";",
-        "line": 12
-    },
-    {
-        "classPart": "}",
-        "valuePart": "}",
-        "line": 13
-    },
-    {
-        "classPart": "}",
-        "valuePart": "}",
-        "line": 14
     }
 ]

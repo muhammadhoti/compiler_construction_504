@@ -111,7 +111,7 @@ export class LexicalAnalyzer {
     }
 
     PuncuatorEvent() {
-        if (this.char === ".") {
+        if (this.char === "." && !this.isChar && !this.isString) {
             this.DotPuncuatorEvent();
         } else if (this.char !== '"' && this.char !== "'" && !this.isChar && !this.isString) {
             this.PuncuatorBreakEvent();
