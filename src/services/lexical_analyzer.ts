@@ -37,7 +37,10 @@ export class LexicalAnalyzer {
                 } else if((this.isString || this.isChar) && this.isBackslash){
                     this.BackslashForceConcatEvent();
                 } else if(this.char === " " || isPuncuator && ((!this.isString || this.char === '"') || (!this.isChar || this.char === '"'))) {
-                    this.SpacePunctuatorBreakEvent();
+                    if(!this.isSingleLineComment && !this.isMultiLineComment){
+                        this.SpacePunctuatorBreakEvent();
+                    }
+
                     if (isPuncuator && !this.isSingleLineComment && !this.isMultiLineComment) {
                         this.PuncuatorEvent();
                     }

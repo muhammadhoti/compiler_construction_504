@@ -90,8 +90,8 @@
         "line": 5
     },
     {
-        "classPart": "5.5",
-        "valuePart": "5.5",
+        "classPart": "55",
+        "valuePart": "55",
         "line": 5
     },
     {
@@ -100,8 +100,13 @@
         "line": 5
     },
     {
-        "classPart": "num2=",
-        "valuePart": "num2=",
+        "classPart": "num2",
+        "valuePart": "num2",
+        "line": 5
+    },
+    {
+        "classPart": "=",
+        "valuePart": "=",
         "line": 5
     },
     {
@@ -185,8 +190,8 @@
         "line": 8
     },
     {
-        "classPart": "\"Sum of these numbers: . \"\"",
-        "valuePart": "\"Sum of these numbers: . \"\"",
+        "classPart": "\"Sum of these numbers:\"\"",
+        "valuePart": "\"Sum of these numbers:\"\"",
         "line": 8
     },
     {
