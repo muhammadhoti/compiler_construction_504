@@ -28,11 +28,18 @@ export class LexicalAnalyzer {
     SplitWords(): void {
         for (let char of this.sourceCode) {
             this.char = char;
+            if(this.char === ")"){
+                console.log();
+            }
             if (this.char === "\n") {
-                this.NewLineEvent();
+                this.NewLineEndOfFileEvent();
             } else if (this.char !== "\r") {
                 let isPuncuator = this.IsPunctuator();
-                if (this.char === " " || isPuncuator && ((!this.isString || this.char === '"') || (!this.isChar || this.char === '"'))) {
+                if((this.isString || this.isChar) && this.char === "\\" && !this.isBackslash){
+                    this.BackslashEvent();
+                } else if((this.isString || this.isChar) && this.isBackslash){
+                    this.BackslashForceConcatEvent();
+                } else if(this.char === " " || isPuncuator && ((!this.isString || this.char === '"') || (!this.isChar || this.char === '"'))) {
                     this.SpacePunctuatorBreakEvent();
                     if (isPuncuator && !this.isSingleLineComment && !this.isMultiLineComment) {
                         this.PuncuatorEvent();
@@ -44,7 +51,20 @@ export class LexicalAnalyzer {
                 }
             }
             this.index++;
+            if(this.sourceCode.length === this.index){
+                this.NewLineEndOfFileEvent();
+            }
         }
+    }
+
+    BackslashEvent(){
+        this.ConcatWithTemp();
+        this.isBackslash = true;
+    }
+
+    BackslashForceConcatEvent(){
+        this.ConcatWithTemp();
+        this.isBackslash = false;
     }
 
     CommentEvent() {
@@ -96,7 +116,7 @@ export class LexicalAnalyzer {
     PuncuatorEvent() {
         if (this.char === ".") {
             this.DotPuncuatorEvent();
-        } else if (this.char !== '"' && this.char !== "'") {
+        } else if (this.char !== '"' && this.char !== "'" && !this.isChar && !this.isString) {
             this.PuncuatorBreakEvent();
         } else if (this.char === "'" || this.char === '"') {
             this.StringCharPuncuatorEvent();
@@ -154,7 +174,7 @@ export class LexicalAnalyzer {
         if (this.temp && this.temp !== " " && !this.isString && !this.isChar && !this.IsFloat()) {
             this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
             this.temp = "";
-        } else if (this.char === " " && (this.isString || this.isChar)) {
+        } else if ((this.isString || this.isChar)) {
             this.ConcatWithTemp();
         }
     }
@@ -168,7 +188,7 @@ export class LexicalAnalyzer {
         return false;
     }
 
-    NewLineEvent() {
+    NewLineEndOfFileEvent() {
         if (!this.isSingleLineComment && !this.isMultiLineComment) {
             if (this.temp && this.temp !== " ") {
                 let token: Token = this.TokenizeWord(this.temp, this.lineNumber, true);

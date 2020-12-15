@@ -30,18 +30,8 @@
         "line": 1
     },
     {
-        "classPart": "\"Hello Hello\"",
-        "valuePart": "\"Hello Hello\"",
-        "line": 1
-    },
-    {
-        "classPart": ")",
-        "valuePart": ")",
-        "line": 1
-    },
-    {
-        "classPart": ";",
-        "valuePart": ";",
+        "classPart": "invalidLexue",
+        "valuePart": "\"hello \\n World\\\")",
         "line": 1
     }
 ]
