@@ -1,37 +1,272 @@
 [
     {
-        "classPart": "System",
-        "valuePart": "System",
+        "classPart": "public",
+        "valuePart": "public",
         "line": 1
     },
     {
-        "classPart": ".",
-        "valuePart": ".",
+        "classPart": "class",
+        "valuePart": "class",
         "line": 1
     },
     {
-        "classPart": "out",
-        "valuePart": "out",
+        "classPart": "AddTwoNumbers",
+        "valuePart": "AddTwoNumbers",
         "line": 1
     },
     {
-        "classPart": ".",
-        "valuePart": ".",
+        "classPart": "{",
+        "valuePart": "{",
         "line": 1
     },
     {
-        "classPart": "println",
-        "valuePart": "println",
-        "line": 1
+        "classPart": "public",
+        "valuePart": "public",
+        "line": 3
+    },
+    {
+        "classPart": "static",
+        "valuePart": "static",
+        "line": 3
+    },
+    {
+        "classPart": "void",
+        "valuePart": "void",
+        "line": 3
+    },
+    {
+        "classPart": "main",
+        "valuePart": "main",
+        "line": 3
     },
     {
         "classPart": "(",
         "valuePart": "(",
-        "line": 1
+        "line": 3
     },
     {
-        "classPart": "invalidLexue",
-        "valuePart": "\"hello \\n World\\\")",
-        "line": 1
+        "classPart": "String",
+        "valuePart": "String",
+        "line": 3
+    },
+    {
+        "classPart": "[",
+        "valuePart": "[",
+        "line": 3
+    },
+    {
+        "classPart": "]",
+        "valuePart": "]",
+        "line": 3
+    },
+    {
+        "classPart": "args",
+        "valuePart": "args",
+        "line": 3
+    },
+    {
+        "classPart": ")",
+        "valuePart": ")",
+        "line": 3
+    },
+    {
+        "classPart": "{",
+        "valuePart": "{",
+        "line": 3
+    },
+    {
+        "classPart": "int",
+        "valuePart": "int",
+        "line": 5
+    },
+    {
+        "classPart": "num1",
+        "valuePart": "num1",
+        "line": 5
+    },
+    {
+        "classPart": "=",
+        "valuePart": "=",
+        "line": 5
+    },
+    {
+        "classPart": "5.5",
+        "valuePart": "5.5",
+        "line": 5
+    },
+    {
+        "classPart": ",",
+        "valuePart": ",",
+        "line": 5
+    },
+    {
+        "classPart": "num2=",
+        "valuePart": "num2=",
+        "line": 5
+    },
+    {
+        "classPart": "15",
+        "valuePart": "15",
+        "line": 5
+    },
+    {
+        "classPart": ",",
+        "valuePart": ",",
+        "line": 5
+    },
+    {
+        "classPart": "sum",
+        "valuePart": "sum",
+        "line": 5
+    },
+    {
+        "classPart": ";",
+        "valuePart": ";",
+        "line": 5
+    },
+    {
+        "classPart": "sum",
+        "valuePart": "sum",
+        "line": 6
+    },
+    {
+        "classPart": "=",
+        "valuePart": "=",
+        "line": 6
+    },
+    {
+        "classPart": "num1",
+        "valuePart": "num1",
+        "line": 6
+    },
+    {
+        "classPart": "+",
+        "valuePart": "+",
+        "line": 6
+    },
+    {
+        "classPart": "num2",
+        "valuePart": "num2",
+        "line": 6
+    },
+    {
+        "classPart": ";",
+        "valuePart": ";",
+        "line": 6
+    },
+    {
+        "classPart": "if",
+        "valuePart": "if",
+        "line": 8
+    },
+    {
+        "classPart": "(",
+        "valuePart": "(",
+        "line": 8
+    },
+    {
+        "classPart": "num1",
+        "valuePart": "num1",
+        "line": 8
+    },
+    {
+        "classPart": ">",
+        "valuePart": ">",
+        "line": 8
+    },
+    {
+        "classPart": "num2",
+        "valuePart": "num2",
+        "line": 8
+    },
+    {
+        "classPart": ")",
+        "valuePart": ")",
+        "line": 8
+    },
+    {
+        "classPart": "{",
+        "valuePart": "{",
+        "line": 8
+    },
+    {
+        "classPart": "4",
+        "valuePart": "4",
+        "line": 9
+    },
+    {
+        "classPart": "/",
+        "valuePart": "/",
+        "line": 9
+    },
+    {
+        "classPart": "5",
+        "valuePart": "5",
+        "line": 9
+    },
+    {
+        "classPart": "}",
+        "valuePart": "}",
+        "line": 10
+    },
+    {
+        "classPart": "System",
+        "valuePart": "System",
+        "line": 12
+    },
+    {
+        "classPart": ".",
+        "valuePart": ".",
+        "line": 12
+    },
+    {
+        "classPart": "out",
+        "valuePart": "out",
+        "line": 12
+    },
+    {
+        "classPart": ".",
+        "valuePart": ".",
+        "line": 12
+    },
+    {
+        "classPart": "println",
+        "valuePart": "println",
+        "line": 12
+    },
+    {
+        "classPart": "(",
+        "valuePart": "(",
+        "line": 12
+    },
+    {
+        "classPart": "\"Sum of these numbers: \"\"",
+        "valuePart": "\"Sum of these numbers: \"\"",
+        "line": 12
+    },
+    {
+        "classPart": "+sum",
+        "valuePart": "+sum",
+        "line": 12
+    },
+    {
+        "classPart": ")",
+        "valuePart": ")",
+        "line": 12
+    },
+    {
+        "classPart": ";",
+        "valuePart": ";",
+        "line": 12
+    },
+    {
+        "classPart": "}",
+        "valuePart": "}",
+        "line": 13
+    },
+    {
+        "classPart": "}",
+        "valuePart": "}",
+        "line": 14
     }
 ]

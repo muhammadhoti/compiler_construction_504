@@ -28,9 +28,6 @@ export class LexicalAnalyzer {
     SplitWords(): void {
         for (let char of this.sourceCode) {
             this.char = char;
-            if(this.char === ")"){
-                console.log();
-            }
             if (this.char === "\n") {
                 this.NewLineEndOfFileEvent();
             } else if (this.char !== "\r") {
@@ -180,7 +177,6 @@ export class LexicalAnalyzer {
     }
 
     IsFloat(): boolean {
-
         if (this.char === "." && new RegExp(this.myLanguage.digits.join("|")).test(this.temp) && !new RegExp(this.myLanguage.alphabets.join("|")).test(this.temp) && !this.temp.includes(".")) {
             return true;
         }

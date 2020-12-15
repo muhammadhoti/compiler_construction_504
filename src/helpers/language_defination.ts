@@ -309,6 +309,11 @@ export class LanguageDefination {
     punctuators : LanguageDefinedConstant[] = [
         {
             type : LanguageDefinedConstantTypes.punctuator,
+            valuePart : ",",
+            classPart : ","
+        },
+        {
+            type : LanguageDefinedConstantTypes.punctuator,
             valuePart : ";",
             classPart : ";"
         },
