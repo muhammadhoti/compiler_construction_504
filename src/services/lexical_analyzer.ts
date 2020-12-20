@@ -12,8 +12,11 @@ export class LexicalAnalyzer {
     lineNumber = 1;
     temp = "";
     char = "";
+    isPuncuator = false;
+    isOperator = false;
     isSingleLineComment: boolean = false;
     isMultiLineComment: boolean = false;
+    waitingForCommentConfirmation: boolean = false;
     isString: boolean = false;
     isChar: boolean = false;
     isBackslash: boolean = false;
@@ -31,23 +34,29 @@ export class LexicalAnalyzer {
             if (this.char === "\n") {
                 this.NewLineEndOfFileEvent();
             } else if (this.char !== "\r") {
-                let isPuncuator = this.IsPunctuator();
-                let isOperator : boolean = false;
-                if(!isPuncuator){
-                    isOperator = this.IsOperator();
+                this.IsPunctuator();
+                if(!this.isPuncuator){
+                    this.IsOperator();
+                }
+                if(this.waitingForCommentConfirmation){
+                    if(this.char !== "/"){
+                        this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+                        this.temp = "";
+                        this.waitingForCommentConfirmation = false;
+                    }
                 }
                 if((this.isString || this.isChar) && this.char === "\\" && !this.isBackslash){
                     this.BackslashEvent();
                 } else if((this.isString || this.isChar) && this.isBackslash){
                     this.BackslashForceConcatEvent();
-                } else if((!isOperator || !this.isString || !this.isChar) && (this.char === " " || (isPuncuator && ((!this.isString || this.char === '"') || (!this.isChar || this.char === '"'))))) {
+                } else if((!this.isOperator || !this.isString || !this.isChar) && (this.char === " " || (this.isPuncuator && ((!this.isString || this.char === '"') || (!this.isChar || this.char === '"'))))) {
                     if(!this.isSingleLineComment && !this.isMultiLineComment){
                         this.SpacePunctuatorBreakEvent();
                     }
-                    if (isPuncuator && !this.isSingleLineComment && !this.isMultiLineComment) {
+                    if (this.isPuncuator && !this.isSingleLineComment && !this.isMultiLineComment) {
                         this.PuncuatorEvent();
                     }
-                } else if (isOperator) {
+                } else if (this.isOperator && !this.isSingleLineComment && !this.isMultiLineComment) {
                     this.OperatorEvent();
                 } else {
                     this.ConcatWithTemp();
@@ -64,34 +73,37 @@ export class LexicalAnalyzer {
         if (this.isChar || this.isString) {
             this.ConcatWithTemp();
         } else if(this.char === "/" || this.char === "*"){
-            if (this.char === "/" && !this.isMultiLineComment) {
-                this.SingleLineCommentEvent();
-            } else {
-                this.MultiLineCommentEvent();
-            }
+            this.CommentEvent();
         } else {
             this.OperatorBreakerEvent();
         }
     }
 
-    OperatorBreakerEvent(){
-        if(this.temp){
-            this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+    CommentEvent(){
+        if (this.char === "/" && !this.isMultiLineComment) {
+            this.SingleLineCommentEvent();
+        } else {
+            this.MultiLineCommentEvent();
         }
-        this.temp = "";
-        this.tokens.push(this.TokenizeWord(this.char, this.lineNumber));
     }
 
     SingleLineCommentEvent() {
         if (this.temp === "/") {
             this.temp = "";
             this.isSingleLineComment = true;
+            this.waitingForCommentConfirmation = false;
         } else if (this.temp.includes("/")) {
             this.tokens.push(this.TokenizeWord(this.temp.slice(0, this.temp.length - 1), this.lineNumber));
             this.temp = "";
             this.isSingleLineComment = true;
-        } else {
+            this.waitingForCommentConfirmation = false;
+        } else{
+            if(this.temp){
+                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+                this.temp = "";
+            }
             this.ConcatWithTemp();
+            this.waitingForCommentConfirmation = true;
         }
     }
 
@@ -108,6 +120,14 @@ export class LexicalAnalyzer {
         } else {
             this.ConcatWithTemp();
         }
+    }
+
+    OperatorBreakerEvent(){
+        if(this.temp){
+            this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+            this.temp = "";
+        }
+        this.tokens.push(this.TokenizeWord(this.char, this.lineNumber));
     }
 
     ConcatWithTemp() {
@@ -177,7 +197,7 @@ export class LexicalAnalyzer {
         if (this.temp && this.temp !== " " && !this.isString && !this.isChar && !this.IsFloat()) {
             this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
             this.temp = "";
-        } else if ((this.isString || this.isChar)) {
+        } else if ((this.isString || this.isChar) && !this.isPuncuator) {
             this.ConcatWithTemp();
         }
     }
@@ -203,8 +223,7 @@ export class LexicalAnalyzer {
     NewLineEndOfFileEvent() {
         if (!this.isSingleLineComment && !this.isMultiLineComment) {
             if (this.temp && this.temp !== " ") {
-                let token: Token = this.TokenizeWord(this.temp, this.lineNumber, true);
-                this.tokens.push(token);
+                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber, true));
             }
         }
         this.lineNumber++;
@@ -215,21 +234,23 @@ export class LexicalAnalyzer {
         this.temp = "";
     }
 
-    IsPunctuator(): boolean {
+    IsPunctuator(): void {
         let index = this.myLanguage.punctuators.findIndex(x => x.valuePart === this.char);
         if (index === -1 || this.char === "\\") {
-            return false
+            this.isPuncuator = false
+        }else{
+            this.isPuncuator = true;
         }
-        return true;
     }
 
-    IsOperator(): boolean {
+    IsOperator(): void {
         let i = 0;
         let index = this.myLanguage.operators.findIndex(x => x.valuePart === this.char);
         if (index === -1) {
-            return false
+            this.isOperator = false
+        }else{
+            this.isOperator = true;
         }
-        return true;
     }
 
     TokenizeWord(word: string, lineNumber: number, fromLineBreak = false): Token {

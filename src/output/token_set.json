@@ -75,6 +75,31 @@
         "line": 3
     },
     {
+        "classPart": "String",
+        "valuePart": "String",
+        "line": 4
+    },
+    {
+        "classPart": "char2",
+        "valuePart": "char2",
+        "line": 4
+    },
+    {
+        "classPart": "=",
+        "valuePart": "=",
+        "line": 4
+    },
+    {
+        "classPart": "'3'",
+        "valuePart": "'3'",
+        "line": 4
+    },
+    {
+        "classPart": ";",
+        "valuePart": ";",
+        "line": 4
+    },
+    {
         "classPart": "int",
         "valuePart": "int",
         "line": 5
@@ -190,8 +215,8 @@
         "line": 8
     },
     {
-        "classPart": "\"Sum of these numbers:\"\"",
-        "valuePart": "\"Sum of these numbers:\"\"",
+        "classPart": "\"Sum of these numbers\"",
+        "valuePart": "\"Sum of these numbers\"",
         "line": 8
     },
     {
