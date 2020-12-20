@@ -39,7 +39,7 @@ export class LexicalAnalyzer {
                     this.IsOperator();
                 }
                 if(this.waitingForCommentConfirmation){
-                    if(this.char !== "/"){
+                    if(this.char !== "/" && this.char !== "*"){
                         this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
                         this.temp = "";
                         this.waitingForCommentConfirmation = false;
@@ -111,14 +111,20 @@ export class LexicalAnalyzer {
         if (this.temp === "/" && this.char === "*") {
             this.temp = "";
             this.isMultiLineComment = true;
+            this.waitingForCommentConfirmation = false;
         } else if (this.char === "*" && this.temp.includes("/")) {
             this.tokens.push(this.TokenizeWord(this.temp.slice(0, this.temp.length - 1), this.lineNumber));
             this.temp = "";
             this.isMultiLineComment = true;
+            this.waitingForCommentConfirmation = false;
         } else if (this.isMultiLineComment && this.char === "/" && this.sourceCode[this.index - 1] === "*") {
             this.isMultiLineComment = false;
         } else {
-            this.ConcatWithTemp();
+            if(this.temp){
+                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+                this.temp = "";
+            }
+            this.tokens.push(this.TokenizeWord(this.char, this.lineNumber));
         }
     }
 

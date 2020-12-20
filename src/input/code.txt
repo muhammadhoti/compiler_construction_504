@@ -3,7 +3,10 @@ public class AddTwoNumbers {
    public static void main(String[] args) {
        String char2 = '3';
       int num1=55, num2=15, sum;
-      sum = num1+num2;
+      sum = num1/num2;
+      /*
+      sum = num1*num2;
+      */
         // this is comment ;.,
       System.out.println("Sum of these numbers:"+sum);
    }
