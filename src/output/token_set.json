@@ -157,31 +157,206 @@
     {
         "classPart": "sum",
         "valuePart": "sum",
-        "line": 6
+        "line": 7
     },
     {
-        "classPart": "=",
-        "valuePart": "=",
-        "line": 6
+        "classPart": "+=",
+        "valuePart": "+=",
+        "line": 7
     },
     {
         "classPart": "num1",
         "valuePart": "num1",
-        "line": 6
+        "line": 7
     },
     {
         "classPart": "/",
         "valuePart": "/",
-        "line": 6
+        "line": 7
     },
     {
         "classPart": "num2",
         "valuePart": "num2",
-        "line": 6
+        "line": 7
     },
     {
         "classPart": ";",
         "valuePart": ";",
-        "line": 6
+        "line": 7
+    },
+    {
+        "classPart": "if",
+        "valuePart": "if",
+        "line": 9
+    },
+    {
+        "classPart": "(",
+        "valuePart": "(",
+        "line": 9
+    },
+    {
+        "classPart": "sum",
+        "valuePart": "sum",
+        "line": 9
+    },
+    {
+        "classPart": ">=",
+        "valuePart": ">=",
+        "line": 9
+    },
+    {
+        "classPart": "4",
+        "valuePart": "4",
+        "line": 9
+    },
+    {
+        "classPart": "&&",
+        "valuePart": "&&",
+        "line": 9
+    },
+    {
+        "classPart": "sum",
+        "valuePart": "sum",
+        "line": 9
+    },
+    {
+        "classPart": "<",
+        "valuePart": "<",
+        "line": 9
+    },
+    {
+        "classPart": "10",
+        "valuePart": "10",
+        "line": 9
+    },
+    {
+        "classPart": "||",
+        "valuePart": "||",
+        "line": 9
+    },
+    {
+        "classPart": "sum",
+        "valuePart": "sum",
+        "line": 9
+    },
+    {
+        "classPart": "!=",
+        "valuePart": "!=",
+        "line": 9
+    },
+    {
+        "classPart": "num1",
+        "valuePart": "num1",
+        "line": 9
+    },
+    {
+        "classPart": "&&",
+        "valuePart": "&&",
+        "line": 9
+    },
+    {
+        "classPart": "!",
+        "valuePart": "!",
+        "line": 9
+    },
+    {
+        "classPart": "num2",
+        "valuePart": "num2",
+        "line": 9
+    },
+    {
+        "classPart": ")",
+        "valuePart": ")",
+        "line": 9
+    },
+    {
+        "classPart": "{",
+        "valuePart": "{",
+        "line": 9
+    },
+    {
+        "classPart": "--",
+        "valuePart": "--",
+        "line": 10
+    },
+    {
+        "classPart": "num1",
+        "valuePart": "num1",
+        "line": 10
+    },
+    {
+        "classPart": ";",
+        "valuePart": ";",
+        "line": 10
+    },
+    {
+        "classPart": "}",
+        "valuePart": "}",
+        "line": 11
+    },
+    {
+        "classPart": "System",
+        "valuePart": "System",
+        "line": 15
+    },
+    {
+        "classPart": ".",
+        "valuePart": ".",
+        "line": 15
+    },
+    {
+        "classPart": "out",
+        "valuePart": "out",
+        "line": 15
+    },
+    {
+        "classPart": ".",
+        "valuePart": ".",
+        "line": 15
+    },
+    {
+        "classPart": "println",
+        "valuePart": "println",
+        "line": 15
+    },
+    {
+        "classPart": "(",
+        "valuePart": "(",
+        "line": 15
+    },
+    {
+        "classPart": "\"Sum of these numbers\"",
+        "valuePart": "\"Sum of these numbers\"",
+        "line": 15
+    },
+    {
+        "classPart": "+",
+        "valuePart": "+",
+        "line": 15
+    },
+    {
+        "classPart": "sum",
+        "valuePart": "sum",
+        "line": 15
+    },
+    {
+        "classPart": ")",
+        "valuePart": ")",
+        "line": 15
+    },
+    {
+        "classPart": ";",
+        "valuePart": ";",
+        "line": 15
+    },
+    {
+        "classPart": "}",
+        "valuePart": "}",
+        "line": 16
+    },
+    {
+        "classPart": "}",
+        "valuePart": "}",
+        "line": 17
     }
 ]

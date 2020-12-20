@@ -17,6 +17,7 @@ export class LexicalAnalyzer {
     isSingleLineComment: boolean = false;
     isMultiLineComment: boolean = false;
     waitingForCommentConfirmation: boolean = false;
+    waitingForDoubleOperators: boolean = false;
     isString: boolean = false;
     isChar: boolean = false;
     isBackslash: boolean = false;
@@ -38,12 +39,12 @@ export class LexicalAnalyzer {
                 if(!this.isPuncuator){
                     this.IsOperator();
                 }
+                if(this.waitingForDoubleOperators){
+                    this.DismissDoubleOperatorsEvent();
+                }
+
                 if(this.waitingForCommentConfirmation){
-                    if(this.char !== "/" && this.char !== "*"){
-                        this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
-                        this.temp = "";
-                        this.waitingForCommentConfirmation = false;
-                    }
+                    this.DismissCommentConfirmationEvent();
                 }
                 if((this.isString || this.isChar) && this.char === "\\" && !this.isBackslash){
                     this.BackslashEvent();
@@ -56,7 +57,7 @@ export class LexicalAnalyzer {
                     if (this.isPuncuator && !this.isSingleLineComment && !this.isMultiLineComment) {
                         this.PuncuatorEvent();
                     }
-                } else if (this.isOperator && !this.isSingleLineComment && !this.isMultiLineComment) {
+                } else if (this.isOperator) {
                     this.OperatorEvent();
                 } else {
                     this.ConcatWithTemp();
@@ -69,13 +70,35 @@ export class LexicalAnalyzer {
         }
     }
 
+    DismissCommentConfirmationEvent(){
+        if(this.char !== "/" && this.char !== "*"){
+            if(this.temp){
+                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+            }
+            this.temp = "";
+            this.waitingForCommentConfirmation = false;
+        }
+    }
+
+    DismissDoubleOperatorsEvent(){
+        if(!this.isOperator){
+            if(this.temp){
+                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+            }
+            this.temp = "";
+            this.waitingForDoubleOperators = false;
+        }
+    }
+
     OperatorEvent() {
         if (this.isChar || this.isString) {
             this.ConcatWithTemp();
         } else if(this.char === "/" || this.char === "*"){
             this.CommentEvent();
         } else {
-            this.OperatorBreakerEvent();
+            if(!this.isSingleLineComment && !this.isMultiLineComment){
+                this.OperatorBreakerEvent();
+            }
         }
     }
 
@@ -97,7 +120,7 @@ export class LexicalAnalyzer {
             this.temp = "";
             this.isSingleLineComment = true;
             this.waitingForCommentConfirmation = false;
-        } else{
+        } else if(!this.isSingleLineComment){
             if(this.temp){
                 this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
                 this.temp = "";
@@ -120,20 +143,30 @@ export class LexicalAnalyzer {
         } else if (this.isMultiLineComment && this.char === "/" && this.sourceCode[this.index - 1] === "*") {
             this.isMultiLineComment = false;
         } else {
-            if(this.temp){
-                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
-                this.temp = "";
-            }
-            this.tokens.push(this.TokenizeWord(this.char, this.lineNumber));
+            this.OperatorBreakerEvent();
         }
     }
 
     OperatorBreakerEvent(){
-        if(this.temp){
-            this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
-            this.temp = "";
+        if(this.waitingForDoubleOperators){
+            if(this.IsDoubleOperator(this.temp+this.char)){
+                this.tokens.push(this.TokenizeWord(this.temp+this.char, this.lineNumber));
+                this.temp = "";
+                this.waitingForDoubleOperators = false;
+            }else{
+                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+                this.temp = "";
+                this.ConcatWithTemp();
+                this.waitingForDoubleOperators = true;
+            }
+        }else{
+            if(this.temp){
+                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+                this.temp = "";
+            }
+            this.ConcatWithTemp();
+            this.waitingForDoubleOperators = true;
         }
-        this.tokens.push(this.TokenizeWord(this.char, this.lineNumber));
     }
 
     ConcatWithTemp() {
@@ -250,13 +283,20 @@ export class LexicalAnalyzer {
     }
 
     IsOperator(): void {
-        let i = 0;
         let index = this.myLanguage.operators.findIndex(x => x.valuePart === this.char);
         if (index === -1) {
             this.isOperator = false
         }else{
             this.isOperator = true;
         }
+    }
+
+    IsDoubleOperator(combination:string): boolean {
+        let index = this.myLanguage.doubleOperatorCombinations.findIndex(x => x === combination);
+        if (index === -1) {
+            return false
+        }
+        return true;
     }
 
     TokenizeWord(word: string, lineNumber: number, fromLineBreak = false): Token {
