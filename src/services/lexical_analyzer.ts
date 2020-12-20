@@ -32,20 +32,23 @@ export class LexicalAnalyzer {
                 this.NewLineEndOfFileEvent();
             } else if (this.char !== "\r") {
                 let isPuncuator = this.IsPunctuator();
+                let isOperator : boolean = false;
+                if(!isPuncuator){
+                    isOperator = this.IsOperator();
+                }
                 if((this.isString || this.isChar) && this.char === "\\" && !this.isBackslash){
                     this.BackslashEvent();
                 } else if((this.isString || this.isChar) && this.isBackslash){
                     this.BackslashForceConcatEvent();
-                } else if(this.char === " " || isPuncuator && ((!this.isString || this.char === '"') || (!this.isChar || this.char === '"'))) {
+                } else if((!isOperator || !this.isString || !this.isChar) && (this.char === " " || (isPuncuator && ((!this.isString || this.char === '"') || (!this.isChar || this.char === '"'))))) {
                     if(!this.isSingleLineComment && !this.isMultiLineComment){
                         this.SpacePunctuatorBreakEvent();
                     }
-
                     if (isPuncuator && !this.isSingleLineComment && !this.isMultiLineComment) {
                         this.PuncuatorEvent();
                     }
-                } else if (this.char === "/" || this.char === "*") {
-                    this.CommentEvent();
+                } else if (isOperator) {
+                    this.OperatorEvent();
                 } else {
                     this.ConcatWithTemp();
                 }
@@ -57,26 +60,26 @@ export class LexicalAnalyzer {
         }
     }
 
-    BackslashEvent(){
-        this.ConcatWithTemp();
-        this.isBackslash = true;
-    }
-
-    BackslashForceConcatEvent(){
-        this.ConcatWithTemp();
-        this.isBackslash = false;
-    }
-
-    CommentEvent() {
-        if (!this.isChar && !this.isString) {
+    OperatorEvent() {
+        if (this.isChar || this.isString) {
+            this.ConcatWithTemp();
+        } else if(this.char === "/" || this.char === "*"){
             if (this.char === "/" && !this.isMultiLineComment) {
                 this.SingleLineCommentEvent();
             } else {
                 this.MultiLineCommentEvent();
             }
         } else {
-            this.ConcatWithTemp();
+            this.OperatorBreakerEvent();
         }
+    }
+
+    OperatorBreakerEvent(){
+        if(this.temp){
+            this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+        }
+        this.temp = "";
+        this.tokens.push(this.TokenizeWord(this.char, this.lineNumber));
     }
 
     SingleLineCommentEvent() {
@@ -187,6 +190,16 @@ export class LexicalAnalyzer {
         return false;
     }
 
+    BackslashEvent(){
+        this.ConcatWithTemp();
+        this.isBackslash = true;
+    }
+
+    BackslashForceConcatEvent(){
+        this.ConcatWithTemp();
+        this.isBackslash = false;
+    }
+
     NewLineEndOfFileEvent() {
         if (!this.isSingleLineComment && !this.isMultiLineComment) {
             if (this.temp && this.temp !== " ") {
@@ -205,6 +218,15 @@ export class LexicalAnalyzer {
     IsPunctuator(): boolean {
         let index = this.myLanguage.punctuators.findIndex(x => x.valuePart === this.char);
         if (index === -1 || this.char === "\\") {
+            return false
+        }
+        return true;
+    }
+
+    IsOperator(): boolean {
+        let i = 0;
+        let index = this.myLanguage.operators.findIndex(x => x.valuePart === this.char);
+        if (index === -1) {
             return false
         }
         return true;

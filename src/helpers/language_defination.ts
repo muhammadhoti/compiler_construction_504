@@ -208,7 +208,6 @@ export class LanguageDefination {
             classPart : "/",
             valuePart : "/"
         },
-        ,
         {
             type : LanguageDefinedConstantTypes.operator,
             classPart : "%",
@@ -216,6 +215,18 @@ export class LanguageDefination {
         },
         //Arithmetic Operators
         //Logical Operators
+            //for finding operator char only
+            {
+                type : LanguageDefinedConstantTypes.operator,
+                classPart : "&",
+                valuePart : "&"
+            },
+            {
+                type : LanguageDefinedConstantTypes.operator,
+                classPart : "|",
+                valuePart : "|"
+            },
+            //for finding operator only
         {
             type : LanguageDefinedConstantTypes.operator,
             classPart : "&&",
