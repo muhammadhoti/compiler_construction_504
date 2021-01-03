@@ -182,6 +182,12 @@ export class LanguageDefination {
             classPart : "final",
             valuePart : "final"
 
+        },
+        {
+            type : LanguageDefinedConstantTypes.keyword,
+            classPart : "break",
+            valuePart : "break"
+
         }
     ];
     operators : LanguageDefinedConstant[] = [
@@ -279,12 +285,12 @@ export class LanguageDefination {
         {
             type : LanguageDefinedConstantTypes.operator,
             classPart : "++",
-            valuePart : "--"
+            valuePart : "++"
         },
         {
             type : LanguageDefinedConstantTypes.operator,
-            classPart : "!=",
-            valuePart : "!="
+            classPart : "--",
+            valuePart : "--"
         },
         //Increament/Decreament Operator
         //Associative Operator
@@ -408,15 +414,20 @@ export class LanguageDefination {
     ];
     identifier : LanguageDefinedConstant = {
         type : LanguageDefinedConstantTypes.identifier,
-        classPart : Regex.identifier,
-        valuePart : Regex.identifier
+        classPart : "",
+        valuePart : ""
     };
     constant : LanguageDefinedConstant = {
         type : LanguageDefinedConstantTypes.constant,
-        classPart : Regex.constant,
-        valuePart : Regex.constant
+        classPart : "",
+        valuePart : ""
     };
     digits : string[] = ["0","1","2","3","4","5","6","7","8","9"];
     alphabets : string[] = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
     doubleOperatorCombinations : string[] = ["++","+=","--","-=","==","*=","!=",">=","<=","&&","||"];
+    arithmeticOperators = ["+","-","*","/","%"];
+    logicalOperator = ["&&","||","!"];
+    relationalOperator = [">",">=","<","<=","==","!="];
+    incDecOperator = ["++","--"];
+    associativeOperator = ["=","+=","-=","*=","/="];
 }

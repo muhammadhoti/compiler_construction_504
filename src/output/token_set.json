@@ -10,7 +10,7 @@
         "line": 1
     },
     {
-        "classPart": "AddTwoNumbers",
+        "classPart": "ID",
         "valuePart": "AddTwoNumbers",
         "line": 1
     },
@@ -60,7 +60,7 @@
         "line": 3
     },
     {
-        "classPart": "args",
+        "classPart": "ID",
         "valuePart": "args",
         "line": 3
     },
@@ -80,17 +80,17 @@
         "line": 4
     },
     {
-        "classPart": "char2",
+        "classPart": "ID",
         "valuePart": "char2",
         "line": 4
     },
     {
-        "classPart": "=",
+        "classPart": "ASO",
         "valuePart": "=",
         "line": 4
     },
     {
-        "classPart": "'3'",
+        "classPart": "char_const",
         "valuePart": "'3'",
         "line": 4
     },
@@ -105,17 +105,17 @@
         "line": 5
     },
     {
-        "classPart": "num1",
+        "classPart": "ID",
         "valuePart": "num1",
         "line": 5
     },
     {
-        "classPart": "=",
+        "classPart": "ASO",
         "valuePart": "=",
         "line": 5
     },
     {
-        "classPart": "55",
+        "classPart": "integer_const",
         "valuePart": "55",
         "line": 5
     },
@@ -125,17 +125,17 @@
         "line": 5
     },
     {
-        "classPart": "num2",
+        "classPart": "ID",
         "valuePart": "num2",
         "line": 5
     },
     {
-        "classPart": "=",
+        "classPart": "ASO",
         "valuePart": "=",
         "line": 5
     },
     {
-        "classPart": "15",
+        "classPart": "integer_const",
         "valuePart": "15",
         "line": 5
     },
@@ -145,7 +145,7 @@
         "line": 5
     },
     {
-        "classPart": "sum",
+        "classPart": "ID",
         "valuePart": "sum",
         "line": 5
     },
@@ -155,27 +155,27 @@
         "line": 5
     },
     {
-        "classPart": "sum",
+        "classPart": "ID",
         "valuePart": "sum",
         "line": 7
     },
     {
-        "classPart": "+=",
+        "classPart": "ASO",
         "valuePart": "+=",
         "line": 7
     },
     {
-        "classPart": "num1",
+        "classPart": "ID",
         "valuePart": "num1",
         "line": 7
     },
     {
-        "classPart": "/",
+        "classPart": "ARO",
         "valuePart": "/",
         "line": 7
     },
     {
-        "classPart": "num2",
+        "classPart": "ID",
         "valuePart": "num2",
         "line": 7
     },
@@ -195,72 +195,72 @@
         "line": 9
     },
     {
-        "classPart": "sum",
+        "classPart": "ID",
         "valuePart": "sum",
         "line": 9
     },
     {
-        "classPart": ">=",
+        "classPart": "RO",
         "valuePart": ">=",
         "line": 9
     },
     {
-        "classPart": "4",
+        "classPart": "integer_const",
         "valuePart": "4",
         "line": 9
     },
     {
-        "classPart": "&&",
+        "classPart": "LO",
         "valuePart": "&&",
         "line": 9
     },
     {
-        "classPart": "sum",
+        "classPart": "ID",
         "valuePart": "sum",
         "line": 9
     },
     {
-        "classPart": "<",
+        "classPart": "RO",
         "valuePart": "<",
         "line": 9
     },
     {
-        "classPart": "10",
+        "classPart": "integer_const",
         "valuePart": "10",
         "line": 9
     },
     {
-        "classPart": "||",
+        "classPart": "LO",
         "valuePart": "||",
         "line": 9
     },
     {
-        "classPart": "sum",
+        "classPart": "ID",
         "valuePart": "sum",
         "line": 9
     },
     {
-        "classPart": "!=",
+        "classPart": "RO",
         "valuePart": "!=",
         "line": 9
     },
     {
-        "classPart": "num1",
+        "classPart": "ID",
         "valuePart": "num1",
         "line": 9
     },
     {
-        "classPart": "&&",
+        "classPart": "LO",
         "valuePart": "&&",
         "line": 9
     },
     {
-        "classPart": "!",
+        "classPart": "LO",
         "valuePart": "!",
         "line": 9
     },
     {
-        "classPart": "num2",
+        "classPart": "ID",
         "valuePart": "num2",
         "line": 9
     },
@@ -275,12 +275,12 @@
         "line": 9
     },
     {
-        "classPart": "--",
+        "classPart": "IDO",
         "valuePart": "--",
         "line": 10
     },
     {
-        "classPart": "num1",
+        "classPart": "ID",
         "valuePart": "num1",
         "line": 10
     },
@@ -295,7 +295,7 @@
         "line": 11
     },
     {
-        "classPart": "System",
+        "classPart": "ID",
         "valuePart": "System",
         "line": 15
     },
@@ -305,7 +305,7 @@
         "line": 15
     },
     {
-        "classPart": "out",
+        "classPart": "ID",
         "valuePart": "out",
         "line": 15
     },
@@ -315,7 +315,7 @@
         "line": 15
     },
     {
-        "classPart": "println",
+        "classPart": "ID",
         "valuePart": "println",
         "line": 15
     },
@@ -325,17 +325,17 @@
         "line": 15
     },
     {
-        "classPart": "\"Sum of these numbers\"",
+        "classPart": "string_const",
         "valuePart": "\"Sum of these numbers\"",
         "line": 15
     },
     {
-        "classPart": "+",
+        "classPart": "ARO",
         "valuePart": "+",
         "line": 15
     },
     {
-        "classPart": "sum",
+        "classPart": "ID",
         "valuePart": "sum",
         "line": 15
     },

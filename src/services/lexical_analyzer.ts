@@ -1,4 +1,4 @@
-import { Errors, Path } from "../helpers/enums";
+import { ClassPart, Errors, Path, Regex } from "../helpers/enums";
 import { LanguageDefination } from "../helpers/language_defination";
 import { Token } from "../models/token";
 import { FileSystem } from "./file_system";
@@ -233,7 +233,7 @@ export class LexicalAnalyzer {
     }
 
     SpacePunctuatorBreakEvent() {
-        if (this.temp && this.temp !== " " && !this.isString && !this.isChar && !this.IsFloat()) {
+        if (this.temp && this.temp !== " " && !this.isString && !this.isChar && !this.IsDouble()) {
             this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
             this.temp = "";
         } else if ((this.isString || this.isChar) && !this.isPuncuator) {
@@ -241,7 +241,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    IsFloat(): boolean {
+    IsDouble(): boolean {
         if (this.char === "." && new RegExp(this.myLanguage.digits.join("|")).test(this.temp) && !new RegExp(this.myLanguage.alphabets.join("|")).test(this.temp) && !this.temp.includes(".")) {
             return true;
         }
@@ -309,6 +309,14 @@ export class LexicalAnalyzer {
         return token;
     }
 
+    IsKeyword(word:string): boolean {
+        let index = this.myLanguage.keywords.findIndex(x => x.valuePart === word);
+        if (index === -1) {
+            return false
+        }
+        return true;
+    }
+
     GetClassPart(word: string, fromLineBreak = false): string {
         if (fromLineBreak) {
             if (word[0] === '"' || word[0] === "'") {
@@ -320,7 +328,54 @@ export class LexicalAnalyzer {
                 return Errors.invalidLexue;
             }
         }
-        return word;
+        if (word[0] === '"' && word[word.length-1] !== '"') {
+            return Errors.invalidLexue;
+        }
+        if (word[0] === "'" && word[word.length-1] !== "'") {
+            return Errors.invalidLexue;
+        }
+        if (word[0] === '"' && word[word.length-1] === '"') {
+            return ClassPart.string;
+        }
+        if (word[0] === "'" && word[word.length-1] === "'") {
+            return ClassPart.char;
+        }
+
+        if(this.myLanguage.punctuators.findIndex(x => x.valuePart === word) !== -1){
+            return word;
+        }
+
+        if(this.myLanguage.arithmeticOperators.findIndex(x => x === word) !== -1){
+            return ClassPart.arithmeticOperator;
+        }
+        if(this.myLanguage.logicalOperator.findIndex(x => x === word) !== -1){
+            return ClassPart.logicalOperator;
+        }
+        if(this.myLanguage.relationalOperator.findIndex(x => x === word) !== -1){
+            return ClassPart.relationalOperator;
+        }if(this.myLanguage.incDecOperator.findIndex(x => x === word) !== -1){
+            return ClassPart.incDecOperator;
+        }if(this.myLanguage.associativeOperator.findIndex(x => x === word) !== -1){
+            return ClassPart.associativeOperator;
+        }
+        
+        if(word.match(Regex.number)){
+            if(word.match(Regex.double)){
+                return ClassPart.double;
+            }
+            if(word.match(Regex.int)){
+                return ClassPart.int;
+            }
+        }
+        if(word.match(Regex.identifier)){
+            if(this.IsKeyword(word)){
+                return word;
+            }else{
+                return ClassPart.identifier;
+            }
+        }
+
+        return Errors.invalidLexue;
     }
 
 }
