@@ -182,12 +182,6 @@ export class LanguageDefination {
             classPart : "final",
             valuePart : "final"
 
-        },
-        {
-            type : LanguageDefinedConstantTypes.keyword,
-            classPart : "break",
-            valuePart : "break"
-
         }
     ];
     operators : LanguageDefinedConstant[] = [
