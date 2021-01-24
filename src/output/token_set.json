@@ -1,77 +1,162 @@
 [
     {
-        "classPart": "public",
-        "valuePart": "public",
-        "line": 1
-    },
-    {
-        "classPart": "class",
-        "valuePart": "class",
+        "classPart": "void",
+        "valuePart": "void",
         "line": 1
     },
     {
         "classPart": "ID",
-        "valuePart": "AddTwoNumbers",
+        "valuePart": "interface",
         "line": 1
     },
     {
-        "classPart": "{",
-        "valuePart": "{",
+        "classPart": "ID",
+        "valuePart": "A_B_C",
         "line": 1
     },
     {
-        "classPart": "public",
-        "valuePart": "public",
-        "line": 3
+        "classPart": ":",
+        "valuePart": ":",
+        "line": 1
     },
     {
-        "classPart": "static",
-        "valuePart": "static",
-        "line": 3
+        "classPart": ":",
+        "valuePart": ":",
+        "line": 1
     },
     {
-        "classPart": "void",
-        "valuePart": "void",
-        "line": 3
+        "classPart": ":",
+        "valuePart": ":",
+        "line": 1
     },
     {
-        "classPart": "main",
-        "valuePart": "main",
-        "line": 3
+        "classPart": "ID",
+        "valuePart": "abc",
+        "line": 1
+    },
+    {
+        "classPart": "double_const",
+        "valuePart": ".45",
+        "line": 1
+    },
+    {
+        "classPart": "ID",
+        "valuePart": "abc",
+        "line": 1
+    },
+    {
+        "classPart": "ID",
+        "valuePart": "if_else",
+        "line": 2
     },
     {
         "classPart": "(",
         "valuePart": "(",
-        "line": 3
+        "line": 2
     },
     {
-        "classPart": "String",
-        "valuePart": "String",
-        "line": 3
+        "classPart": "ID",
+        "valuePart": "a",
+        "line": 2
     },
     {
-        "classPart": "[",
-        "valuePart": "[",
-        "line": 3
+        "classPart": "RO",
+        "valuePart": "<",
+        "line": 2
     },
     {
-        "classPart": "]",
-        "valuePart": "]",
+        "classPart": "RO",
+        "valuePart": "<",
+        "line": 2
+    },
+    {
+        "classPart": "RO",
+        "valuePart": "<",
+        "line": 2
+    },
+    {
+        "classPart": "RO",
+        "valuePart": "<",
+        "line": 2
+    },
+    {
+        "classPart": "ID",
+        "valuePart": "b",
+        "line": 2
+    },
+    {
+        "classPart": "RO",
+        "valuePart": "!=",
+        "line": 2
+    },
+    {
+        "classPart": "integer_const",
+        "valuePart": "54",
+        "line": 2
+    },
+    {
+        "classPart": "IDO",
+        "valuePart": "++",
+        "line": 2
+    },
+    {
+        "classPart": "ASO",
+        "valuePart": "+=",
+        "line": 2
+    },
+    {
+        "classPart": "RO",
+        "valuePart": "==",
+        "line": 2
+    },
+    {
+        "classPart": "LO",
+        "valuePart": "!",
+        "line": 2
+    },
+    {
+        "classPart": "LO",
+        "valuePart": "!",
+        "line": 2
+    },
+    {
+        "classPart": "LO",
+        "valuePart": "!",
+        "line": 2
+    },
+    {
+        "classPart": "RO",
+        "valuePart": "<",
+        "line": 2
+    },
+    {
+        "classPart": "RO",
+        "valuePart": ">",
+        "line": 2
+    },
+    {
+        "classPart": "ID",
+        "valuePart": "a54bv",
+        "line": 2
+    },
+    {
+        "classPart": "char",
+        "valuePart": "char",
         "line": 3
     },
     {
         "classPart": "ID",
-        "valuePart": "args",
+        "valuePart": "ch",
         "line": 3
     },
     {
-        "classPart": ")",
-        "valuePart": ")",
+        "classPart": "ASO",
+        "valuePart": "=",
         "line": 3
     },
     {
-        "classPart": "{",
-        "valuePart": "{",
+        "classPart": "invalidLexue",
+        "valuePart": "\"vsdfds\\\\a+== vdsds-=ds\\*\\\"fsdsas",
         "line": 3
     },
     {
@@ -81,7 +166,7 @@
     },
     {
         "classPart": "ID",
-        "valuePart": "char2",
+        "valuePart": "s",
         "line": 4
     },
     {
@@ -91,272 +176,152 @@
     },
     {
         "classPart": "char_const",
-        "valuePart": "'3'",
+        "valuePart": "' '",
         "line": 4
-    },
-    {
-        "classPart": ";",
-        "valuePart": ";",
-        "line": 4
-    },
-    {
-        "classPart": "int",
-        "valuePart": "int",
-        "line": 5
-    },
-    {
-        "classPart": "ID",
-        "valuePart": "num1",
-        "line": 5
-    },
-    {
-        "classPart": "ASO",
-        "valuePart": "=",
-        "line": 5
-    },
-    {
-        "classPart": "integer_const",
-        "valuePart": "55",
-        "line": 5
-    },
-    {
-        "classPart": ",",
-        "valuePart": ",",
-        "line": 5
-    },
-    {
-        "classPart": "ID",
-        "valuePart": "num2",
-        "line": 5
-    },
-    {
-        "classPart": "ASO",
-        "valuePart": "=",
-        "line": 5
-    },
-    {
-        "classPart": "integer_const",
-        "valuePart": "15",
-        "line": 5
-    },
-    {
-        "classPart": ",",
-        "valuePart": ",",
-        "line": 5
-    },
-    {
-        "classPart": "ID",
-        "valuePart": "sum",
-        "line": 5
-    },
-    {
-        "classPart": ";",
-        "valuePart": ";",
-        "line": 5
-    },
-    {
-        "classPart": "ID",
-        "valuePart": "sum",
-        "line": 7
-    },
-    {
-        "classPart": "ASO",
-        "valuePart": "+=",
-        "line": 7
-    },
-    {
-        "classPart": "ID",
-        "valuePart": "num1",
-        "line": 7
-    },
-    {
-        "classPart": "ARO",
-        "valuePart": "/",
-        "line": 7
-    },
-    {
-        "classPart": "ID",
-        "valuePart": "num2",
-        "line": 7
-    },
-    {
-        "classPart": ";",
-        "valuePart": ";",
-        "line": 7
-    },
-    {
-        "classPart": "if",
-        "valuePart": "if",
-        "line": 9
-    },
-    {
-        "classPart": "(",
-        "valuePart": "(",
-        "line": 9
-    },
-    {
-        "classPart": "ID",
-        "valuePart": "sum",
-        "line": 9
-    },
-    {
-        "classPart": "RO",
-        "valuePart": ">=",
-        "line": 9
-    },
-    {
-        "classPart": "integer_const",
-        "valuePart": "4",
-        "line": 9
-    },
-    {
-        "classPart": "LO",
-        "valuePart": "&&",
-        "line": 9
-    },
-    {
-        "classPart": "ID",
-        "valuePart": "sum",
-        "line": 9
-    },
-    {
-        "classPart": "RO",
-        "valuePart": "<",
-        "line": 9
-    },
-    {
-        "classPart": "integer_const",
-        "valuePart": "10",
-        "line": 9
-    },
-    {
-        "classPart": "LO",
-        "valuePart": "||",
-        "line": 9
-    },
-    {
-        "classPart": "ID",
-        "valuePart": "sum",
-        "line": 9
-    },
-    {
-        "classPart": "RO",
-        "valuePart": "!=",
-        "line": 9
-    },
-    {
-        "classPart": "ID",
-        "valuePart": "num1",
-        "line": 9
-    },
-    {
-        "classPart": "LO",
-        "valuePart": "&&",
-        "line": 9
-    },
-    {
-        "classPart": "LO",
-        "valuePart": "!",
-        "line": 9
-    },
-    {
-        "classPart": "ID",
-        "valuePart": "num2",
-        "line": 9
-    },
-    {
-        "classPart": ")",
-        "valuePart": ")",
-        "line": 9
-    },
-    {
-        "classPart": "{",
-        "valuePart": "{",
-        "line": 9
     },
     {
         "classPart": "IDO",
-        "valuePart": "--",
-        "line": 10
+        "valuePart": "++",
+        "line": 4
     },
     {
-        "classPart": "ID",
-        "valuePart": "num1",
-        "line": 10
+        "classPart": "invalidLexue",
+        "valuePart": "'++'",
+        "line": 4
     },
     {
-        "classPart": ";",
-        "valuePart": ";",
-        "line": 10
+        "classPart": "invalidLexue",
+        "valuePart": "\\n",
+        "line": 4
     },
     {
-        "classPart": "}",
-        "valuePart": "}",
-        "line": 11
+        "classPart": "invalidLexue",
+        "valuePart": "'abc'",
+        "line": 4
     },
     {
-        "classPart": "ID",
-        "valuePart": "System",
-        "line": 15
+        "classPart": "invalidLexue",
+        "valuePart": "\\\\r",
+        "line": 4
     },
     {
-        "classPart": ".",
-        "valuePart": ".",
-        "line": 15
+        "classPart": "char_const",
+        "valuePart": "'+'",
+        "line": 4
     },
     {
-        "classPart": "ID",
-        "valuePart": "out",
-        "line": 15
+        "classPart": "integer_const",
+        "valuePart": "43",
+        "line": 4
     },
     {
-        "classPart": ".",
-        "valuePart": ".",
-        "line": 15
+        "classPart": "ARO",
+        "valuePart": "-",
+        "line": 4
     },
     {
-        "classPart": "ID",
-        "valuePart": "println",
-        "line": 15
+        "classPart": "integer_const",
+        "valuePart": "2",
+        "line": 4
+    },
+    {
+        "classPart": "invalidLexue",
+        "valuePart": "'3",
+        "line": 4
+    },
+    {
+        "classPart": "return",
+        "valuePart": "return",
+        "line": 5
+    },
+    {
+        "classPart": "new",
+        "valuePart": "new",
+        "line": 5
+    },
+    {
+        "classPart": "class",
+        "valuePart": "class",
+        "line": 5
     },
     {
         "classPart": "(",
         "valuePart": "(",
-        "line": 15
+        "line": 5
     },
     {
-        "classPart": "string_const",
-        "valuePart": "\"Sum of these numbers\"",
-        "line": 15
+        "classPart": "(",
+        "valuePart": "(",
+        "line": 5
     },
     {
-        "classPart": "ARO",
-        "valuePart": "+",
-        "line": 15
+        "classPart": "(",
+        "valuePart": "(",
+        "line": 5
+    },
+    {
+        "classPart": "double_const",
+        "valuePart": "78.78",
+        "line": 5
+    },
+    {
+        "classPart": "double_const",
+        "valuePart": ".2",
+        "line": 5
     },
     {
         "classPart": "ID",
-        "valuePart": "sum",
-        "line": 15
+        "valuePart": "b4vv",
+        "line": 5
     },
     {
-        "classPart": ")",
-        "valuePart": ")",
-        "line": 15
+        "classPart": ".",
+        "valuePart": ".",
+        "line": 5
     },
     {
-        "classPart": ";",
-        "valuePart": ";",
-        "line": 15
+        "classPart": "ID",
+        "valuePart": "vv24c",
+        "line": 5
     },
     {
-        "classPart": "}",
-        "valuePart": "}",
-        "line": 16
+        "classPart": "double_const",
+        "valuePart": ".45",
+        "line": 5
     },
     {
-        "classPart": "}",
-        "valuePart": "}",
-        "line": 17
+        "classPart": "ID",
+        "valuePart": "s2n",
+        "line": 5
+    },
+    {
+        "classPart": "double_const",
+        "valuePart": ".435",
+        "line": 5
+    },
+    {
+        "classPart": "double_const",
+        "valuePart": ".343",
+        "line": 5
+    },
+    {
+        "classPart": "ARO",
+        "valuePart": "-",
+        "line": 5
+    },
+    {
+        "classPart": "integer_const",
+        "valuePart": "56",
+        "line": 5
+    },
+    {
+        "classPart": "ARO",
+        "valuePart": "*",
+        "line": 5
+    },
+    {
+        "classPart": "ID",
+        "valuePart": "abc",
+        "line": 5
     }
 ]
