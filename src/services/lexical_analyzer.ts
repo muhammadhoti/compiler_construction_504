@@ -27,6 +27,7 @@ export class LexicalAnalyzer {
         this.sourceCode = codeFile.toString()
         this.SplitWords();
         await this.fileSystem.WriteFile(JSON.stringify(this.tokens), Path.tokenSet, "token_set.json");
+        return this.tokens;
     }
 
     SplitWords(): void {
@@ -60,10 +61,17 @@ export class LexicalAnalyzer {
                 } else if (this.isOperator) {
                     this.OperatorEvent();
                 } else {
-                    this.ConcatWithTemp();
+                    if(!this.isString && !this.isChar && this.temp.includes(".") && !this.myLanguage.digits.includes(this.char)){
+                        this.TokenizeWord(this.temp,this.lineNumber);
+                        this.temp = this.char;
+                    }else{
+                        this.ConcatWithTemp();
+                    }
                 }
             }
             this.index++;
+            this.isOperator = false;
+            this.isPuncuator = false;
             if(this.sourceCode.length === this.index){
                 this.NewLineEndOfFileEvent();
             }
@@ -73,7 +81,7 @@ export class LexicalAnalyzer {
     DismissCommentConfirmationEvent(){
         if(this.char !== "/" && this.char !== "*"){
             if(this.temp){
-                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+                this.TokenizeWord(this.temp, this.lineNumber);
             }
             this.temp = "";
             this.waitingForCommentConfirmation = false;
@@ -83,7 +91,7 @@ export class LexicalAnalyzer {
     DismissDoubleOperatorsEvent(){
         if(!this.isOperator){
             if(this.temp){
-                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+                this.TokenizeWord(this.temp, this.lineNumber);
             }
             this.temp = "";
             this.waitingForDoubleOperators = false;
@@ -116,13 +124,13 @@ export class LexicalAnalyzer {
             this.isSingleLineComment = true;
             this.waitingForCommentConfirmation = false;
         } else if (this.temp.includes("/")) {
-            this.tokens.push(this.TokenizeWord(this.temp.slice(0, this.temp.length - 1), this.lineNumber));
+            this.TokenizeWord(this.temp.slice(0, this.temp.length - 1), this.lineNumber);
             this.temp = "";
             this.isSingleLineComment = true;
             this.waitingForCommentConfirmation = false;
         } else if(!this.isSingleLineComment){
             if(this.temp){
-                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+                this.TokenizeWord(this.temp, this.lineNumber);
                 this.temp = "";
             }
             this.ConcatWithTemp();
@@ -136,7 +144,7 @@ export class LexicalAnalyzer {
             this.isMultiLineComment = true;
             this.waitingForCommentConfirmation = false;
         } else if (this.char === "*" && this.temp.includes("/")) {
-            this.tokens.push(this.TokenizeWord(this.temp.slice(0, this.temp.length - 1), this.lineNumber));
+            this.TokenizeWord(this.temp.slice(0, this.temp.length - 1), this.lineNumber);
             this.temp = "";
             this.isMultiLineComment = true;
             this.waitingForCommentConfirmation = false;
@@ -150,18 +158,18 @@ export class LexicalAnalyzer {
     OperatorBreakerEvent(){
         if(this.waitingForDoubleOperators){
             if(this.IsDoubleOperator(this.temp+this.char)){
-                this.tokens.push(this.TokenizeWord(this.temp+this.char, this.lineNumber));
+                this.TokenizeWord(this.temp+this.char, this.lineNumber);
                 this.temp = "";
                 this.waitingForDoubleOperators = false;
             }else{
-                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+                this.TokenizeWord(this.temp, this.lineNumber);
                 this.temp = "";
                 this.ConcatWithTemp();
                 this.waitingForDoubleOperators = true;
             }
         }else{
             if(this.temp){
-                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+                this.TokenizeWord(this.temp, this.lineNumber);
                 this.temp = "";
             }
             this.ConcatWithTemp();
@@ -196,7 +204,7 @@ export class LexicalAnalyzer {
     }
 
     PuncuatorBreakEvent() {
-        this.tokens.push(this.TokenizeWord(this.char, this.lineNumber));
+        this.TokenizeWord(this.char, this.lineNumber);
         this.temp = "";
     }
 
@@ -215,7 +223,7 @@ export class LexicalAnalyzer {
         } else if (this.isString) {
             this.isString = false;
             this.temp = this.temp + this.char;
-            this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+            this.TokenizeWord(this.temp, this.lineNumber)
             this.temp = "";
         }
     }
@@ -227,14 +235,14 @@ export class LexicalAnalyzer {
         } else if (this.isChar) {
             this.isChar = false;
             this.temp = this.temp + this.char;
-            this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+            this.TokenizeWord(this.temp, this.lineNumber);
             this.temp = "";
         }
     }
 
     SpacePunctuatorBreakEvent() {
         if (this.temp && this.temp !== " " && !this.isString && !this.isChar && !this.IsDouble()) {
-            this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber));
+            this.TokenizeWord(this.temp, this.lineNumber);
             this.temp = "";
         } else if ((this.isString || this.isChar) && !this.isPuncuator) {
             this.ConcatWithTemp();
@@ -262,7 +270,7 @@ export class LexicalAnalyzer {
     NewLineEndOfFileEvent() {
         if (!this.isSingleLineComment && !this.isMultiLineComment) {
             if (this.temp && this.temp !== " ") {
-                this.tokens.push(this.TokenizeWord(this.temp, this.lineNumber, true));
+                this.TokenizeWord(this.temp, this.lineNumber, true);
             }
         }
         this.lineNumber++;
@@ -285,7 +293,7 @@ export class LexicalAnalyzer {
     IsOperator(): void {
         let index = this.myLanguage.operators.findIndex(x => x.valuePart === this.char);
         if (index === -1) {
-            this.isOperator = false
+            this.isOperator = false;
         }else{
             this.isOperator = true;
         }
@@ -299,14 +307,14 @@ export class LexicalAnalyzer {
         return true;
     }
 
-    TokenizeWord(word: string, lineNumber: number, fromLineBreak = false): Token {
+    TokenizeWord(word: string, lineNumber: number, fromLineBreak = false): void {
         let token =
         {
             "classPart": this.GetClassPart(word, fromLineBreak),
             "valuePart": word,
             "line": lineNumber
         }
-        return token;
+        this.tokens.push(token);
     }
 
     IsKeyword(word:string): boolean {
