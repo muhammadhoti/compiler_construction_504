@@ -1,12 +1,13 @@
 import { Token } from "./models/models";
-import { LexicalAnalyzer } from "./services/services";
+import { LexicalAnalyzer, SyntaxAnalyzer } from "./services/services";
 
 
 class App {
     public static async start() {
         let lexicalAnalyzer : LexicalAnalyzer = new LexicalAnalyzer();
         let tokens : Token[] = await lexicalAnalyzer.Init();
-        console.log(`${tokens.length} Tokens Found`);
+        console.log(`${tokens.length-1} Tokens Found`);
+        let syntaxAnalyzer : SyntaxAnalyzer = new SyntaxAnalyzer(tokens);
     }
 }
 
