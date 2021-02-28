@@ -22,10 +22,11 @@ export class LexicalAnalyzer {
     isChar: boolean = false;
     isBackslash: boolean = false;
 
-    async Start() {
+    async Init() {
         let codeFile = await this.fileSystem.ReadFile(Path.code);
         this.sourceCode = codeFile.toString()
         this.SplitWords();
+        this.tokens.push({"classPart":"$","valuePart":this.myLanguage.endPart,line:this.lineNumber});
         await this.fileSystem.WriteFile(JSON.stringify(this.tokens), Path.tokenSet, "token_set.json");
         return this.tokens;
     }

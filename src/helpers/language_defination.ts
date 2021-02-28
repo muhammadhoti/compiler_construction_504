@@ -424,4 +424,5 @@ export class LanguageDefination {
     relationalOperator = [">",">=","<","<=","==","!="];
     incDecOperator = ["++","--"];
     associativeOperator = ["=","+=","-=","*=","/="];
+    endPart : "$"
 }
