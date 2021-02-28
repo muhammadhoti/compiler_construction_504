@@ -4,23 +4,23 @@ import { Token } from "../models/token";
 import { FileSystem } from "./file_system";
 
 export class LexicalAnalyzer {
-    myLanguage: LanguageDefination = new LanguageDefination();
-    fileSystem: FileSystem = new FileSystem();
-    sourceCode: string = "";
-    index = 0;
-    tokens: Token[] = [];
-    lineNumber = 1;
-    temp = "";
-    char = "";
-    isPuncuator = false;
-    isOperator = false;
-    isSingleLineComment: boolean = false;
-    isMultiLineComment: boolean = false;
-    waitingForCommentConfirmation: boolean = false;
-    waitingForDoubleOperators: boolean = false;
-    isString: boolean = false;
-    isChar: boolean = false;
-    isBackslash: boolean = false;
+    private myLanguage: LanguageDefination = new LanguageDefination();
+    private fileSystem: FileSystem = new FileSystem();
+    private sourceCode: string = "";
+    private index = 0;
+    private tokens: Token[] = [];
+    private lineNumber = 1;
+    private temp = "";
+    private char = "";
+    private isPuncuator = false;
+    private isOperator = false;
+    private isSingleLineComment: boolean = false;
+    private isMultiLineComment: boolean = false;
+    private waitingForCommentConfirmation: boolean = false;
+    private waitingForDoubleOperators: boolean = false;
+    private isString: boolean = false;
+    private isChar: boolean = false;
+    private isBackslash: boolean = false;
 
     async Init() {
         let codeFile = await this.fileSystem.ReadFile(Path.code);
@@ -31,7 +31,7 @@ export class LexicalAnalyzer {
         return this.tokens;
     }
 
-    SplitWords(): void {
+    private SplitWords(): void {
         for (let char of this.sourceCode) {
             this.char = char;
             if (this.char === "\n") {
@@ -79,7 +79,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    DismissCommentConfirmationEvent(){
+    private DismissCommentConfirmationEvent(){
         if(this.char !== "/" && this.char !== "*"){
             if(this.temp){
                 this.TokenizeWord(this.temp, this.lineNumber);
@@ -89,7 +89,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    DismissDoubleOperatorsEvent(){
+    private DismissDoubleOperatorsEvent(){
         if(!this.isOperator){
             if(this.temp){
                 this.TokenizeWord(this.temp, this.lineNumber);
@@ -99,7 +99,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    OperatorEvent() {
+    private OperatorEvent() {
         if (this.isChar || this.isString) {
             this.ConcatWithTemp();
         } else if(this.char === "/" || this.char === "*"){
@@ -111,7 +111,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    CommentEvent(){
+    private CommentEvent(){
         if (this.char === "/" && !this.isMultiLineComment) {
             this.SingleLineCommentEvent();
         } else {
@@ -119,7 +119,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    SingleLineCommentEvent() {
+    private SingleLineCommentEvent() {
         if (this.temp === "/") {
             this.temp = "";
             this.isSingleLineComment = true;
@@ -139,7 +139,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    MultiLineCommentEvent() {
+    private MultiLineCommentEvent() {
         if (this.temp === "/" && this.char === "*") {
             this.temp = "";
             this.isMultiLineComment = true;
@@ -156,7 +156,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    OperatorBreakerEvent(){
+    private OperatorBreakerEvent(){
         if(this.waitingForDoubleOperators){
             if(this.IsDoubleOperator(this.temp+this.char)){
                 this.TokenizeWord(this.temp+this.char, this.lineNumber);
@@ -178,13 +178,13 @@ export class LexicalAnalyzer {
         }
     }
 
-    ConcatWithTemp() {
+    private ConcatWithTemp() {
         if (!this.isSingleLineComment && !this.isMultiLineComment) {
             this.temp = this.temp + this.char;
         }
     }
 
-    PuncuatorEvent() {
+    private PuncuatorEvent() {
         if (this.char === "." && !this.isChar && !this.isString) {
             this.DotPuncuatorEvent();
         } else if (this.char !== '"' && this.char !== "'" && !this.isChar && !this.isString) {
@@ -194,7 +194,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    DotPuncuatorEvent() {
+    private DotPuncuatorEvent() {
         if (new RegExp(this.myLanguage.digits.join("|")).test(this.sourceCode[this.index + 1])) {
             this.ConcatWithTemp();
         } else if (!new RegExp(this.myLanguage.alphabets.join("|")).test(this.temp) && this.temp) {
@@ -204,12 +204,12 @@ export class LexicalAnalyzer {
         }
     }
 
-    PuncuatorBreakEvent() {
+    private PuncuatorBreakEvent() {
         this.TokenizeWord(this.char, this.lineNumber);
         this.temp = "";
     }
 
-    StringCharPuncuatorEvent() {
+    private StringCharPuncuatorEvent() {
         if (this.char === '"') {
             this.StringPuncuatorEvent();
         } else {
@@ -217,7 +217,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    StringPuncuatorEvent() {
+    private StringPuncuatorEvent() {
         if (!this.isString) {
             this.temp = this.temp + this.char;
             this.isString = true;
@@ -229,7 +229,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    CharPuncuatorEvent() {
+    private CharPuncuatorEvent() {
         if (!this.isChar) {
             this.temp = this.temp + this.char;
             this.isChar = true;
@@ -241,7 +241,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    SpacePunctuatorBreakEvent() {
+    private SpacePunctuatorBreakEvent() {
         if (this.temp && this.temp !== " " && !this.isString && !this.isChar && !this.IsDouble()) {
             this.TokenizeWord(this.temp, this.lineNumber);
             this.temp = "";
@@ -250,7 +250,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    IsDouble(): boolean {
+    private IsDouble(): boolean {
         if (this.char === "." && new RegExp(this.myLanguage.digits.join("|")).test(this.temp) && !new RegExp(this.myLanguage.alphabets.join("|")).test(this.temp) && !this.temp.includes(".")) {
             return true;
         }
@@ -258,17 +258,17 @@ export class LexicalAnalyzer {
         return false;
     }
 
-    BackslashEvent(){
+    private BackslashEvent(){
         this.ConcatWithTemp();
         this.isBackslash = true;
     }
 
-    BackslashForceConcatEvent(){
+    private BackslashForceConcatEvent(){
         this.ConcatWithTemp();
         this.isBackslash = false;
     }
 
-    NewLineEndOfFileEvent() {
+    private NewLineEndOfFileEvent() {
         if (!this.isSingleLineComment && !this.isMultiLineComment) {
             if (this.temp && this.temp !== " ") {
                 this.TokenizeWord(this.temp, this.lineNumber, true);
@@ -282,7 +282,7 @@ export class LexicalAnalyzer {
         this.temp = "";
     }
 
-    IsPunctuator(): void {
+    private IsPunctuator(): void {
         let index = this.myLanguage.punctuators.findIndex(x => x.valuePart === this.char);
         if (index === -1 || this.char === "\\") {
             this.isPuncuator = false
@@ -291,7 +291,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    IsOperator(): void {
+    private IsOperator(): void {
         let index = this.myLanguage.operators.findIndex(x => x.valuePart === this.char);
         if (index === -1) {
             this.isOperator = false;
@@ -300,7 +300,7 @@ export class LexicalAnalyzer {
         }
     }
 
-    IsDoubleOperator(combination:string): boolean {
+    private IsDoubleOperator(combination:string): boolean {
         let index = this.myLanguage.doubleOperatorCombinations.findIndex(x => x === combination);
         if (index === -1) {
             return false
@@ -308,7 +308,7 @@ export class LexicalAnalyzer {
         return true;
     }
 
-    TokenizeWord(word: string, lineNumber: number, fromLineBreak = false): void {
+    private TokenizeWord(word: string, lineNumber: number, fromLineBreak = false): void {
         let token =
         {
             "classPart": this.GetClassPart(word, fromLineBreak),
@@ -318,7 +318,7 @@ export class LexicalAnalyzer {
         this.tokens.push(token);
     }
 
-    IsKeyword(word:string): boolean {
+    private IsKeyword(word:string): boolean {
         let index = this.myLanguage.keywords.findIndex(x => x.valuePart === word);
         if (index === -1) {
             return false
@@ -326,7 +326,7 @@ export class LexicalAnalyzer {
         return true;
     }
 
-    GetClassPart(word: string, fromLineBreak = false): string {
+    private GetClassPart(word: string, fromLineBreak = false): string {
         if (fromLineBreak) {
             if (word[0] === '"' || word[0] === "'") {
                 return Errors.invalidLexue;

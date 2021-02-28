@@ -8,6 +8,7 @@ class App {
         let tokens : Token[] = await lexicalAnalyzer.Init();
         console.log(`${tokens.length-1} Tokens Found`);
         let syntaxAnalyzer : SyntaxAnalyzer = new SyntaxAnalyzer(tokens);
+        console.log(syntaxAnalyzer.Init());
     }
 }
 

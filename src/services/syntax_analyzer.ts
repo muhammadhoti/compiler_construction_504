@@ -4,17 +4,33 @@ import { Token } from "../models/token";
 import { FileSystem } from "./file_system";
 
 export class SyntaxAnalyzer {
-    myLanguage: LanguageDefination = new LanguageDefination();
-    fileSystem: FileSystem = new FileSystem();
-    sourceCode: string = "";
-    tokens: Token[] = [];
+    private myLanguage: LanguageDefination = new LanguageDefination();
+    private fileSystem: FileSystem = new FileSystem();
+    private sourceCode: string = "";
+    private tokens: Token[] = [];
+    private index : number = 0;
 
     constructor(tokens : Token[]){
         this.tokens = tokens;
     }
 
-    Init() {
-        console.log(this.tokens);
+    Init():string{
+        if(this.S()){
+            if(this.tokens[this.index].classPart === this.myLanguage.endPart){
+                return "No Syntax Error";
+            }else{
+                return this.notifyError();
+            }
+        }
+        return this.notifyError();
+    }
+
+    private notifyError():string{
+        return `Syntax Error At Line #${this.tokens[this.index].line}`;
+    }
+
+    private S():boolean{
+        return true;
     }
 
 
