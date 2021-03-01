@@ -107,13 +107,13 @@ export class LanguageDefination {
         },
         {
             type : LanguageDefinedConstantTypes.keyword,
-            classPart : "public",
+            classPart : "accessModifier",
             valuePart : "public"
 
         },
         {
             type : LanguageDefinedConstantTypes.keyword,
-            classPart : "private",
+            classPart : "accessModifier",
             valuePart : "private"
 
         },
@@ -137,7 +137,7 @@ export class LanguageDefination {
         },
         {
             type : LanguageDefinedConstantTypes.keyword,
-            classPart : "extends",
+            classPart : "inhertience",
             valuePart : "extends"
 
         },
@@ -173,13 +173,13 @@ export class LanguageDefination {
         },
         {
             type : LanguageDefinedConstantTypes.keyword,
-            classPart : "abstract",
+            classPart : "classType",
             valuePart : "abstract"
 
         },
         {
             type : LanguageDefinedConstantTypes.keyword,
-            classPart : "final",
+            classPart : "classType",
             valuePart : "final"
 
         }
@@ -424,5 +424,4 @@ export class LanguageDefination {
     relationalOperator = [">",">=","<","<=","==","!="];
     incDecOperator = ["++","--"];
     associativeOperator = ["=","+=","-=","*=","/="];
-    endPart : "$"
 }

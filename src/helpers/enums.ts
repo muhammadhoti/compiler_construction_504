@@ -36,3 +36,7 @@ export enum ClassPart {
     associativeOperator = "ASO",
     incDecOperator = "IDO"
 }
+
+export enum Signs {
+    endPart = "$"
+}

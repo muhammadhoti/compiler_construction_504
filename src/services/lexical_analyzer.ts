@@ -1,4 +1,4 @@
-import { ClassPart, Errors, Path, Regex } from "../helpers/enums";
+import { ClassPart, Errors, Path, Regex, Signs } from "../helpers/enums";
 import { LanguageDefination } from "../helpers/language_defination";
 import { Token } from "../models/token";
 import { FileSystem } from "./file_system";
@@ -26,7 +26,7 @@ export class LexicalAnalyzer {
         let codeFile = await this.fileSystem.ReadFile(Path.code);
         this.sourceCode = codeFile.toString()
         this.SplitWords();
-        this.tokens.push({"classPart":"$","valuePart":this.myLanguage.endPart,line:this.lineNumber});
+        this.tokens.push({"classPart":Signs.endPart,"valuePart":Signs.endPart,line:this.lineNumber});
         await this.fileSystem.WriteFile(JSON.stringify(this.tokens), Path.tokenSet, "token_set.json");
         return this.tokens;
     }
@@ -378,9 +378,19 @@ export class LexicalAnalyzer {
         }
         if(word.match(Regex.identifier)){
             if(this.IsKeyword(word)){
+                if(word === "public" || word === "private"){
+                    return "accessModifier";
+                }
+                if(word === "main"){
+                    return ClassPart.identifier;
+                }
                 return word;
             }else{
-                return ClassPart.identifier;
+                if(["int","double","string","char","boolean"].includes(word)){
+                    return word;
+                }else{
+                    return ClassPart.identifier;
+                }
             }
         }
 
